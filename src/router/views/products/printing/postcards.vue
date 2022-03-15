@@ -101,148 +101,7 @@
       </div>
 
      <!-- ORDER SUMMARY -->
-      <div class="card filemanager-sidebar ms-lg-2">
-        <div class="card-body">
-          <div class="text-center">
-            <h5 class="font-size-15 mb-4">Order Summary</h5>
-            <div class="flex">
-                <span class="text-muted">Name</span>
-                <span class="text-muted">Alex Kunde</span>
-            </div>
-            <div class="flex">
-                <span class="text-muted">Phone</span>
-                <span class="text-muted">1234567789</span>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div
-                        class="avatar-title rounded bg-transparent text-success font-size-20"
-                      >
-                        <i class="mdi mdi-image"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Images</h5>
-                      <p class="text-muted text-truncate mb-0">176 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">6 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div
-                        class="avatar-title rounded bg-transparent text-danger font-size-20"
-                      >
-                        <i class="mdi mdi-play-circle-outline"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Video</h5>
-                      <p class="text-muted text-truncate mb-0">45 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">4.1 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div
-                        class="avatar-title rounded bg-transparent text-info font-size-20"
-                      >
-                        <i class="mdi mdi-music"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Music</h5>
-                      <p class="text-muted text-truncate mb-0">21 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">3.2 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="card border shadow-none mb-2">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div
-                        class="avatar-title rounded bg-transparent text-primary font-size-20"
-                      >
-                        <i class="mdi mdi-file-document"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Document</h5>
-                      <p class="text-muted text-truncate mb-0">21 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">2 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="card border shadow-none">
-              <a href="javascript: void(0);" class="text-body">
-                <div class="p-2">
-                  <div class="d-flex">
-                    <div class="avatar-xs align-self-center me-2">
-                      <div
-                        class="avatar-title rounded bg-transparent text-warning font-size-20"
-                      >
-                        <i class="mdi mdi-folder"></i>
-                      </div>
-                    </div>
-
-                    <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Others</h5>
-                      <p class="text-muted text-truncate mb-0">20 Files</p>
-                    </div>
-
-                    <div class="ms-2">
-                      <p class="text-muted">1.4 GB</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <OrderSummary />
     </div>
     </Layout>
    
@@ -253,9 +112,9 @@
     import Layout from '../../../layouts/main.vue'
     import PageHeader from '@/components/page-header';
     import Multiselect from "vue-multiselect"
-    import ExcelReader  from 'read-excel-file';
-    import XLSX from 'xlsx'
 
+    import OrderSummary from '@/components/order-summary'
+    import XLSX from 'xlsx'
     import axios from 'axios'
     
     //Publish doc as excel. URL is given
@@ -263,7 +122,7 @@
 
     export default {
        
-        components: { Layout,PageHeader,Multiselect},
+        components: { Layout,PageHeader,Multiselect,OrderSummary},
         data() {
             return {
                 title: "Postcards",
@@ -452,17 +311,7 @@
 
 
 <style scoped>
-    /* .d-xl-flex{
-        height: 80vh;
-    } */
-    .flex{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      height: auto;
-    }
-    
+  
     .field{
       margin-bottom: 1em;
     }
