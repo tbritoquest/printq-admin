@@ -8,93 +8,92 @@
         <div class="d-md-flex">
           
           <div class="w-100">
-            <div class="card">
+                    
+              <div class="card" style="min-height:75vh;" :id="SERVICE">
               <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                        <div class="card-body" :id="SERVICE" >
-                            <!-- <h4 class="card-title">Select2</h4>
-                            <p class="card-title-desc">A mobile and touch friendly input spinner component for Bootstrap</p> -->
-                            <!--Initial form-->
-                            <div class="col-sm-8" v-if="!products">
+                  <!-- <h4 class="card-title">Select2</h4>
+                  <p class="card-title-desc">A mobile and touch friendly input spinner component for Bootstrap</p> -->
+                  <!--Initial form-->
+                  <div class="col-sm-8" v-if="!products">
 
-                                <div class="field">
-                                    <label class="label">Product Type</label>
-                                    <div class="select is-medium">
-                                        <select class="form-select" aria-label="select product type">
-                                            <option value="Majestic">Majestic</option>
-                                        </select>
-                                    </div>
-                                </div>
+                      <div class="field">
+                          <label class="label">Product Type</label>
+                          <div class="select is-medium">
+                              <select class="form-select" aria-label="select product type">
+                                  <option value="Majestic">Majestic</option>
+                              </select>
+                          </div>
+                      </div>
 
-                                <div class="field">
-                                    <label class="label">Majestic Type</label>
-                                    <div class="select is-medium">
-                                        <select class="form-select" aria-label="select majestic type" @change="getMajesticType($event)">
-                                          <option value="" disabled="" selected="">Select Majestic Type</option>
-                                          <option value="Akuafoil">Akuafoil</option>
-                                          <option value="RaisedFoil">Raised Foil</option>
-                                          <option value="RaisedSpotUV">Raised Spot UV</option>
-                                          <option value="Silk">Silk</option>
-                                          <option value="Suede">Suede</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
+                      <div class="field">
+                          <label class="label">Majestic Type</label>
+                          <div class="select is-medium">
+                              <select class="form-select" aria-label="select majestic type" @change="getMajesticType($event)">
+                                <option value="" disabled="" selected="">Select Majestic Type</option>
+                                <option value="Akuafoil">Akuafoil</option>
+                                <option value="RaisedFoil">Raised Foil</option>
+                                <option value="RaisedSpotUV">Raised Spot UV</option>
+                                <option value="Silk">Silk</option>
+                                <option value="Suede">Suede</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                  </div>
+
+                  <!--majestic type selected-->
+                  <div class="col-sm-8" v-else>
+                      <!--PRODUCT TYPE-->
+                      <div class="field field-perm">
+                          <label class="label">Product Type</label>
+                          <div class="select is-medium">
+                              <select class="form-select" aria-label="select product type">
+                                  <option value="Majestic">Majestic</option>
+                              </select>
+                          </div>
+                      </div>
+                      <!--MAJESTIC TYPE-->
+                      <div class="field field-perm">
+                          <label class="label">Majestic Type</label>
+                          <div class="select is-medium">
+                              <select class="form-select" aria-label="select majestic type" @change="getMajesticType($event)">
+                                  <!-- <option value="" disabled="" selected="">Select Majestic Type</option> -->
+                                  <option value="Akuafoil" :selected="majesticTypeSelected == 'Akuafoil'">Akuafoil</option>
+                                  <option value="RaisedFoil" :selected="majesticTypeSelected == 'RaisedFoil'">Raised Foil</option>
+                                  <option value="RaisedSpotUV" :selected="majesticTypeSelected == 'RaisedSpotUV'">Raised Spot UV</option>
+                                  <option value="Silk" :selected="majesticTypeSelected == 'Silk'">Silk</option>
+                                  <option value="Suede" :selected="majesticTypeSelected == 'Suede'">Suede</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                      <div id="form-fields" :key="'form'+formKey">
+                          <div :class="['field', index<2? 'hide':'']" v-for="(question, index) in questions" :key="index" v-if="index <= currQ" >
+                            <label class="label">{{question}}</label>
+                            <div class="select is-medium">
+                              <select @change="checkAnswer(index, $event)" class="form-select">
+                                <option value=""  selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
+                                <option v-for="option in hierarchy[index]" :value="option">
+                                  {{option}}
+                                </option>
+                              </select>
                             </div>
+                          </div>
+                      </div>
+                  </div>
 
-                            <!--majestic type selected-->
-                            <div class="col-sm-8" v-else>
-                                <!--PRODUCT TYPE-->
-                                <div class="field field-perm">
-                                    <label class="label">Product Type</label>
-                                    <div class="select is-medium">
-                                        <select class="form-select" aria-label="select product type">
-                                            <option value="Majestic">Majestic</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!--MAJESTIC TYPE-->
-                                <div class="field field-perm">
-                                    <label class="label">Majestic Type</label>
-                                    <div class="select is-medium">
-                                        <select class="form-select" aria-label="select majestic type" @change="getMajesticType($event)">
-                                            <!-- <option value="" disabled="" selected="">Select Majestic Type</option> -->
-                                            <option value="Akuafoil" :selected="majesticTypeSelected == 'Akuafoil'">Akuafoil</option>
-                                            <option value="RaisedFoil" :selected="majesticTypeSelected == 'RaisedFoil'">Raised Foil</option>
-                                            <option value="RaisedSpotUV" :selected="majesticTypeSelected == 'RaisedSpotUV'">Raised Spot UV</option>
-                                            <option value="Silk" :selected="majesticTypeSelected == 'Silk'">Silk</option>
-                                            <option value="Suede" :selected="majesticTypeSelected == 'Suede'">Suede</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div id="form-fields" :key="'form'+formKey">
-                                    <div :class="['field', index<2? 'hide':'']" v-for="(question, index) in questions" :key="index" v-if="index <= currQ" >
-                                      <label class="label">{{question}}</label>
-                                      <div class="select is-medium">
-                                        <select @change="checkAnswer(index, $event)" class="form-select">
-                                          <option value=""  selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
-                                          <option v-for="option in hierarchy[index]" :value="option">
-                                            {{option}}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        </div>
-                    </div>
-      
-                </div>
+              
+              </div>
+          
+              <div style="padding:1em;">
+                <button type="button" class="btn btn-primary rounded-pill" v-if="results && results.length<2">Next</button>
+              </div>
+              </div>
              
 
             
-              </div>
-            </div>
+              
+            
             <!-- end card -->
           </div>
           <!-- end w-100 -->
@@ -105,10 +104,15 @@
       <div class="card filemanager-sidebar ms-lg-2">
         <div class="card-body">
           <div class="text-center">
-            <h5 class="font-size-15 mb-4">Storage</h5>
-           
-
-            <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
+            <h5 class="font-size-15 mb-4">Order Summary</h5>
+            <div class="flex">
+                <span class="text-muted">Name</span>
+                <span class="text-muted">Alex Kunde</span>
+            </div>
+            <div class="flex">
+                <span class="text-muted">Phone</span>
+                <span class="text-muted">1234567789</span>
+            </div>
           </div>
 
           <div class="mt-4">
@@ -295,80 +299,53 @@
         methods:{
           
           goBackToQuestion(id,event){
-              console.log("goBackToQuestion: ", id)
               this.results = this.resultsAtQuestion[id] //filter this batch
               this.currQ = id
               this.hierarchy.length = id+1
-              // this.resultsAtQuestion.length = id+1
-              // console.log("ResultsAtQuestion :",this.resultsAtQuestion)
-
-              // this.generateNextQuestion()
-              // console.log("right id:", id)
-              // window.hey = this.hierarchy
-              // return
-
-              // if(this.hierarchy[id+1].size>1){
-              //   console.log("now")
-              //   document.querySelectorAll('#form-fields select')[id+1].value = ""
-              // }
-
+             
               for(let i=id+1;i<document.querySelectorAll('#form-fields select').length;i++){
                  let selectEl = document.querySelectorAll('#form-fields select')[i]
-                 console.log(selectEl)
                  if(selectEl.length >1){
                     selectEl.value =""
                  }
-                 
-                //  document.querySelectorAll('#form-fields select')[i].remove()
               }
               
               this.checkAnswer(id,event)
-              // this.checkAnswer(id,event)
-              // console.log(document.querySelectorAll('#form-fields select')[id+1])
-              // console.log(id)
-              
+             
           },
           generateNextQuestion(){
-             //b. store old results
-              // this.results = this.products
-
+      
             this.resultsAtQuestion.push(this.results) // add new results
             
-            console.log("generateNextQuestion")
-              this.currQ +=1
-              //Get the next question's options
-              this.set = new Set() 
-              for(let i=0;i<this.results.length;i++){
-                let productAttribute = this.questions[this.currQ] //ex. Size
-                this.set.add(this.results[i][productAttribute].toString().trim())
-              }
-              
-              if(!this.questions[this.currQ].includes("Runsize")){
-                this.set = new Set(Array.from(this.set).sort())
-              }
+            this.currQ +=1
+            //Get the next question's options
+            this.set = new Set() 
+            for(let i=0;i<this.results.length;i++){
+              let productAttribute = this.questions[this.currQ] //ex. Size
+              this.set.add(this.results[i][productAttribute].toString().trim())
+            }
             
-              this.hierarchy.push(this.set)
-              console.log("question generated")
-            
+            if(!this.questions[this.currQ].includes("Runsize")){
+              this.set = new Set(Array.from(this.set).sort())
+            }
+          
+            this.hierarchy.push(this.set)
           },
           checkAnswer(id, event=null){
-              console.log("checkAnswer")
               if(this.currQ>=this.questions.length){ //end of form
                   console.log("No more questions")
                   return
               }
 
               if(id<this.currQ){ // runs in the event that user changes answer
-                 console.log("huhg")
                 this.goBackToQuestion(id,event)
                 return
               }
           
               if(this.hierarchy[this.currQ].size>1 && event){ // case 2: user has many options. runs only in the event that user selects an option
-                  console.log("case 2")
-                  
+                
                   let answer = event.target.value
-                  console.log("Answer selected: ", answer)
+
                   //Generate Results 
                   let newResults = []
                   for(let i=0;i<this.results.length;i++){ // filter results based on answer selected
@@ -423,10 +400,8 @@
               this.hierarchy.push(this.set)
               
               this.formKey++
-              console.log("ok")
-              // this.displayQuestion()
-              // this.checkAnswer(this.currQ)
-
+             
+              //Question is displayed and checked in watch method
 
              
           },
@@ -451,8 +426,6 @@
                       })
                   }
 
-                  window.result = result//test only
-                  console.log(result)
                   this.products = result
 
                   // Initiate form
@@ -465,16 +438,14 @@
         },
         watch: {
           hierarchy(newH, oldH) {
-            // if(this.hierarchy) this.checkAnswer(this.currQ)
-            console.log("hello")
+            
             if(this.hierarchy && this.hierarchy[this.currQ].size<2){ //called when user has only one option
-                console.log("Watch yourself!")
                 this.checkAnswer(this.currQ)
               }
           }
         },
         mounted() {
-            // this.getProducts(gsheet_url_master)
+            console.log('Postcards component mounted.')
         }
     }
 </script>
@@ -484,6 +455,14 @@
     /* .d-xl-flex{
         height: 80vh;
     } */
+    .flex{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      height: auto;
+    }
+    
     .field{
       margin-bottom: 1em;
     }
