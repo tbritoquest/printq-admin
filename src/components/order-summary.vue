@@ -15,7 +15,7 @@
           </div>
 
             <!--Customer's cart-->
-          <div class="mt-4">
+          <div class="mt-4 cart">
 
             <div class="card border shadow-none mb-2">
               <a href="javascript: void(0);" class="text-body">
@@ -42,6 +42,7 @@
 
             
           </div>
+          <img src="@/assets/images/clipboard.jpg" alt="clipboard pic" height="" class="center"/>
         </div>
       </div>
 </template>
@@ -59,5 +60,13 @@ export default {
       flex-wrap: wrap;
       justify-content: space-between;
       height: auto;
+    }
+    img.center{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
     }
 </style>
