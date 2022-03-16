@@ -72,7 +72,7 @@
                             <label class="label">{{question}}</label>
                             <div class="select is-medium">
                               <select @change="checkAnswer(index, $event)" class="form-select">
-                                <option value=""  selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
+                                <option value=""  disabled="" selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
                                 <option v-for="option in hierarchy[index]" :value="option">
                                   {{option}}
                                 </option>

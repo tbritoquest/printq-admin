@@ -4,18 +4,22 @@
           <div class="text-center">
             <h5 class="font-size-15 mb-4">Order Summary</h5>
             <!--Customer Info-->
-            <div class="flex">
-                <span class="text-muted">Name</span>
-                <span class="text-muted">Alex Kunde</span>
-            </div>
-            <div class="flex">
-                <span class="text-muted">Phone</span>
-                <span class="text-muted">1234567789</span>
+            <div v-if="customer">
+              <div class="flex">
+                  <span class="text-muted">Name</span>
+                  <span class="text-muted">{{getName}}</span>
+              </div>
+              <div class="flex">
+                  <span class="text-muted">Phone</span>
+                  <span class="text-muted">{{getPhone}}</span>
+              </div>
             </div>
           </div>
 
             <!--Customer's cart-->
-          <div class="mt-4 cart">
+          <img src="@/assets/images/clipboard.jpg" alt="clipboard pic" height="" class="center" v-if="cart && cart.length<1"/>
+
+          <div class="mt-4 cart" v-else>
 
             <div class="card border shadow-none mb-2">
               <a href="javascript: void(0);" class="text-body">
@@ -39,17 +43,47 @@
                 </div>
               </a>
             </div>
-
-            
           </div>
-          <img src="@/assets/images/clipboard.jpg" alt="clipboard pic" height="" class="center"/>
+          <!--End of Cart-->
+
         </div>
-      </div>
+
+        <div style="padding:1em;text-align:center;">
+          <button type="button" class="btn btn-primary rounded-pill" v-if="cart && cart.length>0">Place Order</button>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
+    data(){
+        return{
+            customer: null,
+            cart: null
+        }
 
+    },
+    computed:{
+      getName: function(){
+        if(this.customer){
+          return this.customer.name
+        }else{
+          return null
+        }
+      },
+      getPhone: function(){
+        if(this.customer){
+          return this.customer.phone
+        }else{
+          return null
+        }
+      }
+    },
+    mounted(){
+      console.log("Order Summary mounted.")
+      this.customer = this.$store.state.customer
+      this.cart = this.$store.state.jobs
+    }
 }
 </script>
 
