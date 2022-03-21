@@ -1,37 +1,3 @@
-<script>
-import { FormWizard, TabContent } from "vue-form-wizard";
-
-import Layout from "../../layouts/main";
-import PageHeader from "@/components/page-header";
-import appConfig from "@/app.config";
-
-/**
- * Form wizard component
- */
-export default {
-  page: {
-    title: "Form Wizard",
-    meta: [{ name: "description", content: appConfig.description }],
-  },
-  components: { Layout, PageHeader, FormWizard, TabContent },
-  data() {
-    return {
-      title: "Form Wizard",
-      items: [
-        {
-          text: "Forms",
-          href: "/",
-        },
-        {
-          text: "Form Wizard",
-          active: true,
-        },
-      ],
-    };
-  },
-};
-</script>
-
 <template>
   <Layout>
     <PageHeader :title="title" :items="items" />
@@ -326,4 +292,40 @@ export default {
 </template>
 
 
+
+
+
+<script>
+import { FormWizard, TabContent } from "vue-form-wizard";
+
+import Layout from "../../layouts/main";
+import PageHeader from "@/components/page-header";
+import appConfig from "@/app.config";
+
+/**
+ * Form wizard component
+ */
+export default {
+  page: {
+    title: "Form Wizard",
+    meta: [{ name: "description", content: appConfig.description }],
+  },
+  components: { Layout, PageHeader, FormWizard, TabContent },
+  data() {
+    return {
+      title: "Form Wizard",
+      items: [
+        {
+          text: "Forms",
+          href: "/",
+        },
+        {
+          text: "Form Wizard",
+          active: true,
+        },
+      ],
+    };
+  },
+};
+</script>
 

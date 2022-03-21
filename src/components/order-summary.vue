@@ -21,7 +21,8 @@
 
           <div class="mt-4 cart" v-else>
 
-            <div class="card border shadow-none mb-2">
+
+            <div class="card border shadow-none mb-2" v-for="(job,index) in cart">
               <a href="javascript: void(0);" class="text-body">
                 <div class="p-2">
                   <div class="d-flex">
@@ -32,12 +33,12 @@
                     </div>
 
                     <div class="overflow-hidden me-auto">
-                      <h5 class="font-size-13 text-truncate mb-1">Postcards</h5>
-                      <p class="text-muted text-truncate mb-0">"Christmas Cards Winter Theme"</p>
+                      <h5 class="font-size-13 text-truncate mb-1">{{job.printSpecs["groupName"]}}</h5>
+                      <p class="text-muted text-truncate mb-0">{{job.name}}</p>
                     </div>
 
                     <div class="ms-2">
-                      <p class="text-muted">1000</p>
+                      <p class="text-muted">{{job.printSpecs["Runsize"]}}</p>
                     </div>
                   </div>
                 </div>
@@ -59,11 +60,14 @@ export default {
     data(){
         return{
             customer: null,
-            cart: null
+            // cart: null
         }
 
     },
     computed:{
+      cart:function(){
+        return this.$store.state.jobs
+      },
       getName: function(){
         if(this.customer){
           return this.customer.name
@@ -82,7 +86,7 @@ export default {
     mounted(){
       console.log("Order Summary mounted.")
       this.customer = this.$store.state.customer
-      this.cart = this.$store.state.jobs
+      // this.cart = this.$store.state.jobs
     }
 }
 </script>
