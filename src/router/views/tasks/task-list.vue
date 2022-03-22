@@ -112,7 +112,88 @@ export default {
               >
             </div>
             <b-modal title="Add Task" v-model="showModal" hide-footer>
-              
+              <form @submit.prevent="handleSubmit">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="name">Event Name</label>
+                      <input
+                        id="name"
+                        v-model="taskList.name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Insert name"
+                        :class="{
+                          'is-invalid': submitted && $v.taskList.name.$error,
+                        }"
+                      />
+                      <div
+                        v-if="submitted && !$v.taskList.name.required"
+                        class="invalid-feedback"
+                      >
+                        This value is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="file">File</label>
+                    <input
+                      id="file"
+                      type="file"
+                      multiple
+                      class="form-control"
+                      @change="onFileChange($event)"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-3">
+                      Task Type
+                      <b-form-select
+                        v-model="selected"
+                        class="mb-3 form-select"
+                      >
+                        <b-form-select-option value="upcoming"
+                          >Upcoming</b-form-select-option
+                        >
+                        <b-form-select-option value="inprogress"
+                          >In-progress</b-form-select-option
+                        >
+                        <b-form-select-option value="completed"
+                          >Completed</b-form-select-option
+                        >
+                      </b-form-select>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-3">
+                      Task Status
+                      <b-form-select
+                        v-model="selected2"
+                        class="mb-3 form-select"
+                      >
+                        <b-form-select-option value="Approved"
+                          >Approved</b-form-select-option
+                        >
+                        <b-form-select-option value="Waiting"
+                          >Waiting</b-form-select-option
+                        >
+                        <b-form-select-option value="Pending"
+                          >Pending</b-form-select-option
+                        >
+                        <b-form-select-option value="Complete"
+                          >Complete</b-form-select-option
+                        >
+                      </b-form-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-end mt-3">
+                  <b-button variant="light">Close</b-button>
+                  <b-button type="submit" variant="success" class="ms-1"
+                    >Create event</b-button
+                  >
+                </div>
+              </form>
             </b-modal>
             <div class="table-responsive mb-0">
               <table class="table table-nowrap align-middle mb-0">

@@ -12,7 +12,7 @@
             <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
             <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
             <label for="date" style="margin-left:1em;"> Date pending</label><br>              
-            <!-- <p class="help is-danger" v-if="isInvalid('sampleDate')">Please select a date</p> -->
+            <p class="help is-danger" v-if="isInvalid('sampleDate')">Please select a date</p>
         </b-form-group>
 
         <!--Job Name-->
@@ -71,7 +71,7 @@ export default {
             }else{
                 null
             }
-        },
+        }
        
     },
     mounted(){

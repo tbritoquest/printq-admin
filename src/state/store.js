@@ -16,14 +16,68 @@ const store = new Vuex.Store({
     user: {id:'1'}
   },  
   mutations:{
+    UPDATE_POST (state, customer) {
+      state.customer = customer
+    },
+    SIGNIN_CUSTOMER(state){
+        state.isCustomerSignedIn = true
+    },
     ADD_TO_CART(state, job){
-      job.printSpecs = JSON.parse(job.printSpecs)
-      state.jobs.push(job)
+        job.printSpecs = JSON.parse(job.printSpecs)
+        state.jobs.push(job)
+    },
+    REMOVE_JOB(state, index){
+        state.jobs.splice(index,1)
+    },
+    PLACE_ORDER(state){
+        axios.post('orders/', {
+            agentId: state.user.id,
+            customerId: state.customer.id,
+            jobs: state.jobs
+          })
+          .then(response =>{
+            state.customer = {}
+            state.isCustomerSignedIn = false 
+            state.jobs = []
+            router.push('orders')
+          })
+          .catch(error => {
+            console.log(error)
+          });
+    },
+    RESET_CUSTOMER(state){
+        state.customer = {}
+        state.isCustomerSignedIn = false
+        state.jobs =  []
+    },
+    EDIT_JOB(state,obj){
+      console.log("Job",obj.job)
+      console.log("Index",obj.index)
+    
+      state.jobs[obj.index] = obj.job
     }
   },
   actions: {
+    resetCustomer({commit}){
+      commit('RESET_CUSTOMER')
+    },
+    updateCustomer ({ commit }, payload) {
+        commit('UPDATE_POST', payload)
+    },
+    signInCustomer({commit}){
+        commit('SIGNIN_CUSTOMER')
+    },
     addToCart({commit}, payload){
-      commit('ADD_TO_CART', payload)
+        commit('ADD_TO_CART', payload)
+    },
+    removeJob({commit}, payload){
+        commit('REMOVE_JOB', payload)
+    },
+    editJob({commit},payload){
+      commit('EDIT_JOB', payload)
+    },
+    placeOrder({commit}){
+        commit('PLACE_ORDER')
     }
   },
   // Enable strict mode in development to get a warning

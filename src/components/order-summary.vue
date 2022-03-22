@@ -22,7 +22,7 @@
           <div class="mt-4 cart" v-else>
 
 
-            <div class="card border shadow-none mb-2" v-for="(job,index) in cart">
+            <div class="card border shadow-none mb-2" v-for="(job,index) in cart" @click="showModal(job,index);$bvModal.show('edit-job-modal')">
               <a href="javascript: void(0);" class="text-body">
                 <div class="p-2">
                   <div class="d-flex">
@@ -52,21 +52,141 @@
         <div style="padding:1em;text-align:center;">
           <button type="button" class="btn btn-primary rounded-pill" v-if="cart && cart.length>0">Place Order</button>
         </div>
+
+         <!-- EDIT JOB FORM -->
+        <b-modal id="edit-job-modal" size="lg" hide-footer>
+          <template #modal-title>
+            <b-form-group class="mb-3" id="example text" label-cols-lg="2" label="Job Name" label-for="text" >
+              <!--Job Name-->
+              <b-form-input for="text" v-model="jobName" :state="jobNameState"></b-form-input>
+            </b-form-group>
+          </template>
+          <div v-if="jobSelected">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                <!--Order Date-->
+                  <div class="col-md-4">
+                    <b-form-group class="mb-3" label="Order Date" label-for="order-date-input" >
+                      <p>{{orderDate}}</p>
+                    </b-form-group>
+                  </div>
+                  <!--Sample Date-->
+                  <div class="col-md-4">
+                    <b-form-group class="mb-3" label="Sample Date" label-for="sample-date-input" >
+                      <!-- <b-form-input id="formrow-email-input" type="date" ></b-form-input> -->
+                        <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
+                        <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
+                        <label for="date" style="margin-left:1em;"> Date pending</label><br>        
+                    </b-form-group>
+                  </div>
+                  <!--Due Date-->
+                  <!-- <div class="col-md-4">
+                    <b-form-group class="mb-3" label="Due Date" label-for="due-date-input" >
+                      <b-form-input id="formrow-email-input" type="email" ></b-form-input>
+                    </b-form-group>
+                  </div> -->
+                  
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                  <!--Project Specs-->
+                  <div class="col-md-4">
+                    <b-form-group class="mb-3" label="Project Specs" label-for="project-specs" >
+                      <ul>
+                        <li v-for="(value,propertyName) in jobSelected.printSpecs">{{propertyName}} : {{value}}</li>
+                      </ul>
+                    </b-form-group>
+                  </div>
+
+                  <!--Notes-->
+                  <div class="col-md-8">
+                    <b-form-group class="mb-3" label="Notes" label-for="notes-input" >
+                      <b-form-textarea id="textarea" placeholder="No notes to show" rows="10" max-rows="10" v-model="notes"></b-form-textarea>     
+                    </b-form-group>
+                  </div>
+                
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <!--Edit Form footer-->
+          <div class="text-end mt-3">
+            <b-button variant="light" @click="$bvModal.hide('edit-job-modal')">Cancel</b-button>
+            <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
+          </div>
+        </b-modal>
+        <!--END of edit job form-->
     </div>
 </template>
 
 <script>
+
+import {format} from 'date-format-parse'
+const _ = require('lodash')
+
 export default {
     data(){
         return{
+            orderDate: format(new Date(), 'YYYY-MM-DD'),
             customer: null,
-            // cart: null
+            jobSelected: null,
+            isSampleDatePending: null,
+            sampleDate: null,
+            notes: null,
+            jobIndex: null,
+            jobName: null,
+            checkValidation: false
         }
 
     },
+    methods:{
+      isEditJobFormValid(){
+        this.checkValidation = true
+        return ((this.jobNameState ||this.jobNameState===null) && this.sampleDateState)? true : false
+       
+      },
+      update(){
+          if(this.isEditJobFormValid()){
+            this.jobSelected.name = this.jobName
+            this.jobSelected.sampleDate = this.isSampleDatePending? "pending" : this.sampleDate
+            this.jobSelected.notes.notes[0] = this.notes
+            //update VueX store
+            this.$store.dispatch('editJob', {job: this.jobSelected,index: this.jobIndex})
+          }
+      },
+      showModal(job,index){
+        this.jobSelected = job
+        this.isSampleDatePending = this.jobSelected.sampleDate === "pending"? true:false
+        this.sampleDate = this.jobSelected.sampleDate === "pending"? "":this.jobSelected.sampleDate
+        this.notes = this.jobSelected.notes.notes[0]
+        this.jobIndex = index
+        this.jobName = job.name
+      }
+    },
     computed:{
+      jobNameState() {
+        return (this.jobName && this.jobName.length>=4)? null : false
+      },
+      sampleDateState(){
+          if(this.checkValidation){
+              if(this.isSampleDatePending || this.sampleDate){
+                  return true
+              }else{
+                  return false
+              }
+          }else{
+              null
+          }
+      },
       cart:function(){
-        return this.$store.state.jobs
+        return _.cloneDeep(this.$store.state.jobs)
       },
       getName: function(){
         if(this.customer){
@@ -87,6 +207,7 @@ export default {
       console.log("Order Summary mounted.")
       this.customer = this.$store.state.customer
       // this.cart = this.$store.state.jobs
+      
     }
 }
 </script>
@@ -107,4 +228,14 @@ export default {
         bottom: 0;
         margin: auto;
     }
+    #edit-job-modal .modal-title{
+      width: 85%;
+      height:40px;
+    }
+    #edit-job-modal ul{
+      list-style: none;
+      padding-left: 0;
+      height:215px; overflow-y: scroll;
+    }
+   
 </style>
