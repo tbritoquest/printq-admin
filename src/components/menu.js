@@ -823,5 +823,11 @@ export const menuItems = [
         label:"menuitems.envelopes.text",
         icon:"",
         link:"/envelopes"
+    },
+    {
+        id:133,
+        label:"menuitems.greeting-cards.text",
+        icon:"",
+        link:"/greeting-cards"
     }
 ];

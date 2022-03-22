@@ -101,9 +101,11 @@
     "menus":{
       "text":"Menus"
     },
-  
     "envelopes":{
       "text":"Envelopes"
+    },
+    "greeting-cards":{
+      "text":"Greeting Cards"
     },
     "menu": {
       "text": "Menu"
