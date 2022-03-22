@@ -7,7 +7,7 @@ export default [
     meta: {
       authRequired: true,
     },
-    component: () => import("./views/dashboards/default"),
+    component: () => import("./views/welcome"),
   },
   {
     path: "/login",
