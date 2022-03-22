@@ -739,5 +739,11 @@ export default [
     name: "menus",
     meta: {authRequired:true},
     component: () => import('./views/products/printing/menus')
+  },
+  {
+    path: "/envelopes",
+    name: "envelopes",
+    meta: {authRequired:true},
+    component: () => import('./views/products/printing/envelopes')
   }
 ];

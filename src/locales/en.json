@@ -101,6 +101,10 @@
     "menus":{
       "text":"Menus"
     },
+  
+    "envelopes":{
+      "text":"Envelopes"
+    },
     "menu": {
       "text": "Menu"
     },

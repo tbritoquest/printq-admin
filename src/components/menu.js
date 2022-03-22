@@ -817,5 +817,11 @@ export const menuItems = [
         label: "menuitems.menus.text",
         icon: "",
         link:"/menus"
+    },
+    {
+        id:132,
+        label:"menuitems.envelopes.text",
+        icon:"",
+        link:"/envelopes"
     }
 ];
