@@ -812,5 +812,10 @@ export const menuItems = [
         icon: "",
         link: "/postcards"
     },
-  
+    {
+        id:131,
+        label: "menuitems.menus.text",
+        icon: "",
+        link:"/menus"
+    }
 ];

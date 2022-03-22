@@ -734,4 +734,10 @@ export default [
       meta: { authRequired: true },
       component: () => import('./views/products/printing/postcards')
   },
+  {
+    path: "/menus",
+    name: "menus",
+    meta: {authRequired:true},
+    component: () => import('./views/products/printing/menus')
+  }
 ];

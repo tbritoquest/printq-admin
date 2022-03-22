@@ -98,6 +98,9 @@
     "postcards": {
       "text": "Postcards"
     },
+    "menus":{
+      "text":"Menus"
+    },
     "menu": {
       "text": "Menu"
     },
