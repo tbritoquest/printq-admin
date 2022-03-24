@@ -751,5 +751,17 @@ export default [
     name: "greeting-cards",
     meta: {authRequired:true},
     component: () => import('./views/products/printing/greeting-cards')
+  },
+  {
+    path: "/customers",
+    name: "customers",
+    meta: {authRequired:true},
+    component: () => import('./views/customers')
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    meta: {authRequired:true},
+    component: () => import('./views/orders')
   }
 ];

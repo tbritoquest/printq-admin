@@ -92,7 +92,6 @@ export default {
       <!-- ============================================================== -->
       <!-- Start Page Content here -->
       <!-- ============================================================== -->
-
       <div class="main-content">
         <div class="page-content">
           <!-- Start Content-->

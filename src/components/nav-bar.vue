@@ -4,7 +4,7 @@ import simplebar from "simplebar-vue";
 
 import i18n from "../i18n";
 import { authComputed } from "@/state/helpers";
-
+import {alertsData} from './data-alerts'
 /**
  * Nav-bar Component
  */
@@ -43,6 +43,8 @@ export default {
       flag: null,
       value: null,
       myVar: 1,
+      alerts: alertsData,
+      isAlertExpanded:false
     };
   },
   components: { simplebar },
@@ -52,6 +54,12 @@ export default {
     this.flag = this.value.flag;
   },
   methods: {
+    showLess(){
+      this.isAlertExpanded = false
+    },
+    showMore(){
+      this.isAlertExpanded = true
+    },
     toggleMenu() {
       this.$parent.toggleMenu();
     },
@@ -109,6 +117,7 @@ export default {
 <template>
   <header id="page-topbar">
     <div class="navbar-header">
+      <!--Left-->
       <div class="d-flex">
         <!-- LOGO -->
         <div class="navbar-brand-box">
@@ -131,17 +140,24 @@ export default {
           </router-link>
         </div>
 
-        <button
+        
+        <button type="button" class="btn header-item noti-icon" >
+            <router-link to="/" style="padding: 0.5em 2em;background: #818CF8;border-radius: 20px;color: #fff;">
+              New Order
+            </router-link>
+          </button>
+
+        <!-- <button
           id="vertical-menu-btn"
           type="button"
           class="btn btn-sm px-3 font-size-16 header-item"
           @click="toggleMenu"
         >
           <i class="fa fa-fw fa-bars"></i>
-        </button>
+        </button> -->
 
         <!-- App Search-->
-        <form class="app-search d-none d-lg-block">
+        <!-- <form class="app-search d-none d-lg-block">
           <div class="position-relative">
             <input
               type="text"
@@ -364,11 +380,15 @@ export default {
               </div>
             </div>
           </div>
-        </b-dropdown>
+        </b-dropdown> -->
       </div>
 
+      <!--Right-->
       <div class="d-flex">
-        <b-dropdown
+
+        
+
+        <!-- <b-dropdown
           class="d-inline-block d-lg-none ms-2"
           variant="black"
           menu-class="dropdown-menu-lg p-0"
@@ -484,19 +504,32 @@ export default {
               </div>
             </div>
           </div>
-        </b-dropdown>
+        </b-dropdown> -->
+
+        <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
+          <button type="button" class="btn header-item noti-icon" @click="initFullScreen" >
+            <i class="bx bx-fullscreen"></i>
+          </button>
+        </div> -->
 
         <div class="dropdown d-none d-lg-inline-block ms-1">
-          <button
-            type="button"
-            class="btn header-item noti-icon"
-            @click="initFullScreen"
-          >
-            <i class="bx bx-fullscreen"></i>
+          <button type="button" class="btn header-item noti-icon" >
+            <router-link to="/customers" >
+              Customers
+            </router-link>
           </button>
         </div>
 
-        <b-dropdown
+        <div class="dropdown d-none d-lg-inline-block ms-1">
+          <button type="button" class="btn header-item noti-icon" >
+            <router-link to="/orders" >
+              Orders
+            </router-link>
+          </button>
+        </div>
+
+
+        <!-- <b-dropdown
           right
           menu-class="dropdown-menu-lg p-0 dropdown-menu-end"
           toggle-class="header-item noti-icon"
@@ -630,15 +663,15 @@ export default {
               {{ $t("navbar.dropdown.notification.button") }}
             </a>
           </div>
-        </b-dropdown>
+        </b-dropdown> -->
 
-        <b-dropdown
+        <!-- <b-dropdown
           right
           variant="black"
           toggle-class="header-item"
           menu-class="dropdown-menu-end"
-        >
-          <template v-slot:button-content>
+        > -->
+          <!-- <template v-slot:button-content>
             <img
               class="rounded-circle header-profile-user"
               src="@/assets/images/users/avatar-1.jpg"
@@ -654,9 +687,9 @@ export default {
               </span
             >
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-          </template>
+          </template> -->
           <!-- item-->
-          <b-dropdown-item>
+          <!-- <b-dropdown-item>
             <router-link to="/contacts/profile" v-slot="{ navigate }" custom>
               <span @click="navigate" @keypress.enter="navigate">
                 <i class="bx bx-user font-size-16 align-middle me-1"></i>
@@ -684,18 +717,44 @@ export default {
             ></i>
             {{ $t("navbar.dropdown.henry.list.logout") }}
           </a>
-        </b-dropdown>
+        </b-dropdown> -->
 
         <div class="dropdown d-inline-block">
           <button
             type="button"
             class="btn header-item noti-icon right-bar-toggle toggle-right"
-            @click="toggleRightSidebar"
-          >
+            @click="toggleRightSidebar">
             <i class="bx bx-cog bx-spin toggle-right"></i>
           </button>
         </div>
       </div>
     </div>
+
+    <div class="alert-box" style="background:#FCEDE9;position:absolute;left:250px;width:100%;padding:1em;">
+        <div class="alerts" v-if="isAlertExpanded">
+          <div class="d-flex" v-for="(alert,index) in alerts" :key="index" style="margin-bottom:40px;">
+            <i class="fas fas fa-exclamation-triangle" style="font-size:20px;color:#F24E1E;margin-right:1em;"></i>
+            <span>{{alert.message}}</span>
+          </div>
+        </div>
+       
+       <div class="alerts" v-else>
+         <div class="d-flex">
+            <i class="fas fas fa-exclamation-triangle" style="font-size:20px;color:#F24E1E;margin-right:1em;"></i>
+            <span>{{alerts[0].message}}</span>
+          </div>
+       </div>
+          <!-- <a v-on:click.stop.prevent="alert('hello')" style="font-size:12px;padding-left:50px;">SHOW MORE</a> -->
+    
+         <b-link @click="showLess()" style="font-size:12px;padding-left:43px;" v-if="isAlertExpanded">SHOW LESS</b-link>
+        <b-link @click="showMore()" style="font-size:12px;padding-left:43px;" v-else>SHOW MORE</b-link>
+
+    </div>
   </header>
 </template>
+
+<style>
+  .page-content{
+    padding-top:160px !important;
+  }
+</style>
