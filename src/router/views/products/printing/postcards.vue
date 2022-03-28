@@ -16,6 +16,7 @@
 
                       <!--Tab 1: PRINT SPECIFICATIONS-->
                       <tab-content title="Print Specification" icon="mdi mdi-cards"  :before-change="beforeTabSwitch">
+                        <Loader :loading="updating" >
                           <div class="col-sm-8" v-if="!products">
                               <div class="field">
                                   <label class="label">Product Type</label>
@@ -80,7 +81,7 @@
                                   </div>
                               </div>
                           </div>
-
+                        </Loader>
                       </tab-content>
                       
                       <!--Tab 2: ADDITIONAL INFO-->
@@ -150,6 +151,7 @@
     import Multiselect from "vue-multiselect"
 
 
+    import Loader from '@/components/widgets/loader'
     import Review from '@/components/review'
     import {format} from 'date-format-parse'
     import { FormWizard, TabContent } from "vue-form-wizard";
@@ -162,7 +164,7 @@
     let gsheet_url_master = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTFWGV2yHbqo9_xjsOUMcaYlQtw39bVqUm5KLNTzo8Q1Q2QFR7U1_D7rAdRyjtmVVN-Jf1VPNOqdQNG/pub?output=xlsx`
 
     export default {
-        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review },
+        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review,Loader },
         data() {
             return {
                 title: "Postcards",
@@ -195,6 +197,7 @@
                 currQ: null,
                 hierarchy: null,
                 set: null,
+                updating:false,
                 //ADDITIONAL INFO 
                 orderDate: format(new Date(), 'YYYY-MM-DD'),
                 sampleDate: '',
@@ -214,24 +217,6 @@
             this.reviewKey++ // update review component
             return (this.jobNameState && this.sampleDateState)? true : false
           },
-          resetFormWizard(){
-            this.SERVICE= null,
-            this.questions= null,
-            this.results= null,
-            this.resultsAtQuestion= null,
-            this.currQ= null,
-            this.hierarchy= null,
-            this.set= null,
-            this.formWizardKey++
-            this.checkValidation = false 
-            this.isSampleDatePending = false 
-            this.jobName = ""
-            this.majesticTypeSelected = null 
-            this.notes = ""
-            this.products = null 
-            this.sampleDate = ""
-            
-          },
           onComplete () { //runs when user submits form
             
             this.results[0]["groupName"] = this.title
@@ -243,7 +228,7 @@
                 name: this.jobName
             }
             this.$store.dispatch('addToCart', job)
-            this.resetFormWizard()
+            this.$router.push("/")
           },
           handleChange(prevIndex, nextIndex){
               console.log(`Changing from ${prevIndex} to ${nextIndex}`)
@@ -301,8 +286,10 @@
             }
           
             this.hierarchy.push(this.set)
+           
           },
           checkAnswer(id, event=null){
+            
               if(this.currQ>=this.questions.length){ //end of form
                   console.log("No more questions")
                   return
@@ -382,6 +369,7 @@
             this.getProducts(gsheet_url)
           },
           getProducts(url){
+            this.updating = true
               axios
               .get(url,{responseType: 'arraybuffer'})
                 .then(response => {
@@ -401,9 +389,12 @@
 
                   // Initiate form
                   this.startForm()
+
+                  this.updating  = false
                 })
                 .catch(error=>{
                   console.log(error)
+                  this.updating = false
                 })
           }
         },
@@ -435,6 +426,11 @@
             else
               return null
           }
+        },
+        updated: function () {
+          this.$nextTick(function () {
+              window.scrollTo(0, document.body.scrollHeight)
+          })
         },
         mounted() {
             console.log('Postcards component mounted.')

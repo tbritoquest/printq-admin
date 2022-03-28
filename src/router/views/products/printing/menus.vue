@@ -161,24 +161,6 @@
             this.reviewKey++ // update review component
             return (this.jobNameState && this.sampleDateState)? true : false
           },
-          resetFormWizard(){
-            this.SERVICE= null,
-            this.questions= null,
-            this.results= null,
-            this.resultsAtQuestion= null,
-            this.currQ= null,
-            this.hierarchy= null,
-            this.set= null,
-            this.formWizardKey++
-            this.checkValidation = false 
-            this.isSampleDatePending = false 
-            this.jobName = ""
-            this.majesticTypeSelected = null 
-            this.notes = ""
-            this.products = null 
-            this.sampleDate = ""
-            this.getProducts(gsheet_url_master)
-          },
           onComplete () { //runs when user submits form
             
             this.results[0]["groupName"] = this.title
@@ -190,7 +172,7 @@
                 name: this.jobName
             }
             this.$store.dispatch('addToCart', job)
-            this.resetFormWizard()
+            this.$router.push("/")
           },
           handleChange(prevIndex, nextIndex){
               console.log(`Changing from ${prevIndex} to ${nextIndex}`)
@@ -238,6 +220,8 @@
             this.currQ +=1
             //Get the next question's options
             this.set = new Set() 
+
+            console.log(this.questions[this.currQ])
             for(let i=0;i<this.results.length;i++){
               let productAttribute = this.questions[this.currQ] //ex. Size
               this.set.add(this.results[i][productAttribute].toString().trim())
@@ -377,6 +361,11 @@
             else
               return null
           }
+        },
+        updated: function () {
+          this.$nextTick(function () {
+              window.scrollTo(0, document.body.scrollHeight)
+          })
         },
         mounted() {
             console.log('Menus component mounted.')

@@ -50,11 +50,11 @@
         </div>
 
         <div style="padding:1em;text-align:center;">
-          <button type="button" class="btn btn-primary rounded-pill" v-if="cart && cart.length>0">Place Order</button>
+          <button type="button" class="btn btn-primary rounded-pill" v-if="cart && cart.length>0" @click="submitOrder()" >Place Order</button>
         </div>
 
          <!-- EDIT JOB FORM -->
-        <b-modal id="edit-job-modal" size="lg" hide-footer>
+        <b-modal id="edit-job-modal" size="lg" hide-footer >
           <template #modal-title>
             <b-form-group class="mb-3" id="example text" label-cols-lg="2" label="Job Name" label-for="text" >
               <!--Job Name-->
@@ -118,7 +118,7 @@
 
           <!--Edit Form footer-->
           <div class="text-end mt-3">
-            <b-button variant="light" @click="$bvModal.hide('edit-job-modal')">Cancel</b-button>
+            <b-button variant="light" @click="$bvModal.hide('edit-job-modal')" ref="editCancelBtn">Cancel</b-button>
             <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
           </div>
         </b-modal>
@@ -142,11 +142,16 @@ export default {
             notes: null,
             jobIndex: null,
             jobName: null,
-            checkValidation: false
+            checkValidation: false,
+            isUpdated: false
         }
 
     },
     methods:{
+      submitOrder(){
+        this.$router.push('/')
+        alert('submitted!')
+      },
       isEditJobFormValid(){
         this.checkValidation = true
         return ((this.jobNameState ||this.jobNameState===null) && this.sampleDateState)? true : false
@@ -159,6 +164,7 @@ export default {
             this.jobSelected.notes.notes[0] = this.notes
             //update VueX store
             this.$store.dispatch('editJob', {job: this.jobSelected,index: this.jobIndex})
+            this.$refs.editCancelBtn.click()
           }
       },
       showModal(job,index){

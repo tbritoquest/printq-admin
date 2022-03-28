@@ -13,19 +13,19 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line no-unused-vars
-    axios.get(process.env.VUE_APP_URL).then((res) => {
-      setTimeout(() => {
-        // you can remove this settimeout method for production or integrating live API.
-        document
-          .getElementsByClassName("preloader-component")
-          .forEach((elem) => {
-            elem.style.display = "none";
-          });
-        document.getElementsByClassName("status").forEach((elem) => {
-          elem.style.display = "none";
-        });
-      }, 1000);
-    });
+    // axios.get(process.env.VUE_APP_URL).then((res) => {
+    //   setTimeout(() => {
+    //     // you can remove this settimeout method for production or integrating live API.
+    //     document
+    //       .getElementsByClassName("preloader-component")
+    //       .forEach((elem) => {
+    //         elem.style.display = "none";
+    //       });
+    //     document.getElementsByClassName("status").forEach((elem) => {
+    //       elem.style.display = "none";
+    //     });
+    //   }, 1000);
+    // });
   },
 };
 </script>
@@ -52,6 +52,9 @@ export default {
 .is-loading {
   position: relative;
 }
+.is-loading .preloader-component{
+  display: block !important;
+}
 .preloader-component {
   position: absolute;
   top: 0;
@@ -61,6 +64,7 @@ export default {
   background-color: #fff;
   z-index: 999;
   width: 100%;
+  display:none;
 }
 .status {
   width: 40px;
