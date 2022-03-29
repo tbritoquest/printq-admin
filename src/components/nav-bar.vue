@@ -142,7 +142,7 @@ export default {
 
         
         <button type="button" class="btn header-item noti-icon" >
-            <router-link to="/" style="padding: 0.5em 2em;background: #818CF8;border-radius: 20px;color: #fff;">
+            <router-link to="/starter" style="padding: 0.5em 2em;background: #818CF8;border-radius: 20px;color: #fff;">
               New Order
             </router-link>
           </button>
@@ -524,6 +524,14 @@ export default {
           <button type="button" class="btn header-item noti-icon" >
             <router-link to="/orders" >
               Orders
+            </router-link>
+          </button>
+        </div>
+
+        <div class="dropdown d-none d-lg-inline-block ms-1">
+          <button type="button" class="btn header-item noti-icon" >
+            <router-link to="/alerts" >
+              Alerts
             </router-link>
           </button>
         </div>

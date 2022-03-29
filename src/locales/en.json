@@ -110,6 +110,93 @@
     "menu": {
       "text": "Menu"
     },
+    "flyers-and-brochures":{
+      "text": "Flyers and Brochures"
+    },
+    "labels-stickers":{
+      "text": "Labels & Stickers"
+    },
+    "posters":{
+      "text": "Posters"
+    },
+    "ncr-forms":{
+      "text": "NCR Forms"
+    },
+    "letterheads":{
+      "text": "Letterheads"
+    },
+    "event-tickets":{
+      "text": "Event Tickets"
+    },
+    "header-cards":{
+      "text": "Header Cards"
+    },
+    "booklets-and-catalogs":{
+      "text": "Booklets and Catalogs"
+    },
+    "door-hangers":{
+      "text": "Door Hangers"
+    },
+    "presentation-folders":{
+      "text": "Presentation Folders"
+    },
+    "table-tents":{
+      "text": "Table Tents"
+    },
+    "notepads":{
+      "text": "Notepads"
+    },
+    "calendars":{
+      "text": "Calendars"
+    },
+    "large-formats":{
+      "text": "Large Format Printing"
+    },
+    "banners":{
+      "text": "Banners"
+    },
+    "adhesive-vinyl":{
+      "text": "Adhesive Vinyl"
+    },
+    "large-posters":{
+      "text": "Large Posters"
+    },
+    "lawn-signs":{
+      "text": "Lawn Signs"
+    },
+    "sidewalk-signs":{
+      "text": "Sidewalk Signs"
+    },
+    "retractable-banners":{
+      "text": "Retractable banners"
+    },
+    "magnetics":{
+      "text": "Magnetics"
+    },
+    "mounted-canvas":{
+      "text": "Mounted Canvas"
+    },
+    "bumper-stickers":{
+      "text": "Bumper Stickers"
+    },
+    "flexo_printing":{
+      "text": "Flexo Printing"
+    },
+    "roll-labels":{
+      "text": "Roll Labels"
+    },
+    "stickers":{
+      "text": "Stickers"
+    },
+    "wraps":{
+      "text": "Wraps"
+    },
+    "promotional_products":{
+      "text": "Promotional Products"
+    },
+    "apparel":{
+      "text": "Apparel"
+    },
     "dashboards": {
       "text": "Dashboards",
       "badge": "04",

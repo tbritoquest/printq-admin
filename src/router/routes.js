@@ -7,7 +7,7 @@ export default [
     meta: {
       authRequired: true,
     },
-    component: () => import("./views/welcome"),
+    component: () => import("./views/orders"),
   },
   {
     path: "/login",
@@ -763,5 +763,11 @@ export default [
     name: "Orders",
     meta: {authRequired:true},
     component: () => import('./views/orders')
+  },
+  {
+    path: "/starter",
+    name: "Starter",
+    meta: {authRequired:true},
+    component: () => import("./views/welcome"),
   }
 ];

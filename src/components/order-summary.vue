@@ -149,7 +149,7 @@ export default {
     },
     methods:{
       submitOrder(){
-        this.$router.push('/')
+        this.$router.push('/starter')
         alert('submitted!')
       },
       isEditJobFormValid(){

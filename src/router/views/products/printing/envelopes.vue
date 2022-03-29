@@ -171,7 +171,7 @@
                 name: this.jobName
             }
             this.$store.dispatch('addToCart', job)
-            this.$router.push("/")
+            this.$router.push("/starter")
           },
           handleChange(prevIndex, nextIndex){
               console.log(`Changing from ${prevIndex} to ${nextIndex}`)

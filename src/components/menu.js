@@ -829,5 +829,169 @@ export const menuItems = [
         label:"menuitems.greeting-cards.text",
         icon:"",
         link:"/greeting-cards"
-    }
+    },
+    {
+        id:134,
+        label:"menuitems.flyers-and-brochures.text",
+        icon:"",
+        link:"/flyers-and-brochures"
+    },
+    {
+        id:135,
+        label:"menuitems.labels-stickers.text",
+        icon:"",
+        link:"/labels-and-stickers"
+    },
+    {
+        id:136,
+        label:"menuitems.posters.text",
+        icon:"",
+        link:"/posters"
+    },
+    {
+        id:137,
+        label:"menuitems.ncr-forms.text",
+        icon:"",
+        link:"/ncr-forms"
+    },
+    {
+        id:138,
+        label:"menuitems.letterheads.text",
+        icon:"",
+        link:"/letterheads"
+    },
+    {
+        id:139,
+        label:"menuitems.header-cards.text",
+        icon:"",
+        link:"/header-cards"
+    },
+    {
+        id:140,
+        label:"menuitems.booklets-and-catalogs.text",
+        icon:"",
+        link:"/booklets-and-catalogs"
+    },
+    {
+        id:141,
+        label:"menuitems.door-hangers.text",
+        icon:"",
+        link:"/door-hangers"
+    },
+    {
+        id:142,
+        label:"menuitems.presentation-folders.text",
+        icon:"",
+        link:"/presentation-folders"
+    },
+    {
+        id:143,
+        label:"menuitems.table-tents.text",
+        icon:"",
+        link:"/table-tents"
+    },
+    {
+        id:144,
+        label:"menuitems.notepads.text",
+        icon:"",
+        link:"/notepads"
+    },
+    {
+        id:145,
+        label:"menuitems.calendars.text",
+        icon:"",
+        link:"/calendars"
+    },
+    {
+        id: 146,
+        label: "menuitems.large-formats.text",
+        isTitle: true
+    },
+    {
+        id:147,
+        label:"menuitems.banners.text",
+        icon:"",
+        link:"/banners"
+    },
+    {
+        id:148,
+        label:"menuitems.adhesive-vinyl.text",
+        icon:"",
+        link:"/adhesive-vinyl"
+    },
+    {
+        id:149,
+        label:"menuitems.large-posters.text",
+        icon:"",
+        link:"/large-posters"
+    },
+    {
+        id:150,
+        label:"menuitems.lawn-signs.text",
+        icon:"",
+        link:"/lawn-signs"
+    },
+    {
+        id:151,
+        label:"menuitems.sidewalk-signs.text",
+        icon:"",
+        link:"/sidewalk-signs"
+    },
+    {
+        id:152,
+        label:"menuitems.retractable-banners.text",
+        icon:"",
+        link:"/retractable-banners"
+    },
+    {
+        id:153,
+        label:"menuitems.magnetics.text",
+        icon:"",
+        link:"/magnetics"
+    },
+    {
+        id:154,
+        label:"menuitems.mounted-canvas.text",
+        icon:"",
+        link:"/mounted-canvas"
+    },
+    {
+        id:155,
+        label:"menuitems.bumper-stickers.text",
+        icon:"",
+        link:"/bumper-stickers"
+    },
+    {
+        id: 156,
+        label: "menuitems.flexo_printing.text",
+        isTitle: true
+    },
+    {
+        id:157,
+        label:"menuitems.roll-labels.text",
+        icon:"",
+        link:"/roll-labels"
+    },
+    {
+        id:158,
+        label:"menuitems.stickers.text",
+        icon:"",
+        link:"/stickers"
+    },
+    {
+        id: 159,
+        label: "menuitems.wraps.text",
+        isTitle: true
+    },
+    {
+        id: 159,
+        label: "menuitems.promotional_products.text",
+        isTitle: true
+    },
+    {
+        id:160,
+        label:"menuitems.apparel.text",
+        icon:"",
+        link:"/apparel"
+    },
 ];
