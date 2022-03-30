@@ -290,10 +290,10 @@
           },
           checkAnswer(id, event=null){
             
-              if(this.currQ>=this.questions.length){ //end of form
-                  console.log("No more questions")
-                  return
-              }
+              // if(this.currQ>=this.questions.length){ //end of form
+              //     console.log("No more questions")
+              //     return
+              // }
 
               if(id<this.currQ){ // runs in the event that user changes answer
                 this.goBackToQuestion(id,event)
@@ -320,6 +320,7 @@
                   // Check if we're done with form
                   if(this.results.length<2){ // DONE
                       console.log("final result: ", this.results)
+                      this.currQ+=1
                       return
                   }
                   
