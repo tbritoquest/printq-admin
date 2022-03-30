@@ -27,30 +27,6 @@
         <b-col>{{customer.email}}</b-col>
         <b-col>{{customer.phone}}</b-col>
     </b-row><br>
-
-    <!-- <div class="columns">
-        <div class="column">
-            <label class="label">Address</label>
-            <div class="control">
-                {{personalInfo.address}}
-            </div>
-        </div>
-    </div>
-
-    <div class="columns">
-        <div class="column">
-            <label class="label">Email</label>
-            <div class="control">
-                {{personalInfo.email}}
-            </div>
-        </div>
-        <div class="column">
-            <label class="label">Phone</label>
-            <div class="control">
-                {{personalInfo.phone}}
-            </div>
-        </div>
-    </div> -->
   
     <h6>Project Specs</h6>
     <ul>
@@ -65,6 +41,12 @@
         <div class="w-100"></div>
         <b-col>{{additionalInfo.orderDate}}</b-col>
         <b-col>{{additionalInfo.sampleDate}}</b-col>
+    </b-row><br>
+
+    <b-row>
+        <b-col><label class="label">Job Name</label></b-col>
+        <div class="w-100"></div>
+        <b-col>{{additionalInfo.jobName}}</b-col>
     </b-row><br>
 
      <b-row>

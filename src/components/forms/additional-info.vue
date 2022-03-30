@@ -23,7 +23,7 @@
 
         <!--Notes-->
         <b-form-group class="mb-3" id="notes" label-cols-lg="3" label="Notes" label-for="notes" >
-            <b-form-textarea id="textarea" placeholder="Enter something..." rows="3" max-rows="6" v-model="notes"></b-form-textarea>
+            <b-form-textarea id="textarea" placeholder="" rows="3" max-rows="6" v-model="notes"></b-form-textarea>
         </b-form-group>
 
         </div>
@@ -59,7 +59,7 @@ export default {
             if (this.jobName.length > 0) {
             return 'Enter at least 4 characters.'
             }
-            return 'Please enter something.'
+            return 'Please enter a job name.'
         },
         sampleDateState(){
             if(this.checkValidation){

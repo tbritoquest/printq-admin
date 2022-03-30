@@ -91,7 +91,7 @@ export default [
   // https://router.vuejs.org/en/essentials/history-mode.html#example-server-configurations
   {
     path: "*",
-    redirect: "404",
+    redirect: "starter",
   },
   {
     path: "/dashboard/saas",
