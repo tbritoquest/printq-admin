@@ -361,11 +361,11 @@
               return null
           }
         },
-        updated: function () {
-          this.$nextTick(function () {
-              window.scrollTo(0, document.body.scrollHeight)
-          })
-        },
+        // updated: function () {
+        //   this.$nextTick(function () {
+        //       window.scrollTo(0, document.body.scrollHeight)
+        //   })
+        // },
         mounted() {
             console.log('Envelopes component mounted.')
             this.customer = this.$store.state.customer

@@ -832,166 +832,191 @@ export const menuItems = [
     },
     {
         id:134,
+        label:"menuitems.business-cards.text",
+        icon:"",
+        link:"/business-cards"
+    },
+    {
+        id:135,
         label:"menuitems.flyers-and-brochures.text",
         icon:"",
         link:"/flyers-and-brochures"
     },
     {
-        id:135,
+        id:136,
         label:"menuitems.labels-stickers.text",
         icon:"",
         link:"/labels-and-stickers"
     },
     {
-        id:136,
+        id:137,
         label:"menuitems.posters.text",
         icon:"",
         link:"/posters"
     },
     {
-        id:137,
+        id:138,
         label:"menuitems.ncr-forms.text",
         icon:"",
         link:"/ncr-forms"
     },
     {
-        id:138,
+        id:139,
         label:"menuitems.letterheads.text",
         icon:"",
         link:"/letterheads"
     },
     {
-        id:139,
+        id:140,
+        label:"menuitems.event-tickets.text",
+        icon:"",
+        link:"/event-tickets"
+    },
+    {
+        id:141,
         label:"menuitems.header-cards.text",
         icon:"",
         link:"/header-cards"
     },
     {
-        id:140,
+        id:142,
         label:"menuitems.booklets-and-catalogs.text",
         icon:"",
         link:"/booklets-and-catalogs"
     },
     {
-        id:141,
+        id:143,
         label:"menuitems.door-hangers.text",
         icon:"",
         link:"/door-hangers"
     },
     {
-        id:142,
+        id:144,
         label:"menuitems.presentation-folders.text",
         icon:"",
         link:"/presentation-folders"
     },
     {
-        id:143,
+        id:145,
         label:"menuitems.table-tents.text",
         icon:"",
         link:"/table-tents"
     },
     {
-        id:144,
+        id:146,
         label:"menuitems.notepads.text",
         icon:"",
         link:"/notepads"
     },
     {
-        id:145,
+        id:147,
         label:"menuitems.calendars.text",
         icon:"",
         link:"/calendars"
     },
     {
-        id: 146,
+        id: 148,
         label: "menuitems.large-formats.text",
         isTitle: true
     },
     {
-        id:147,
+        id:149,
         label:"menuitems.banners.text",
         icon:"",
         link:"/banners"
     },
     {
-        id:148,
+        id:150,
         label:"menuitems.adhesive-vinyl.text",
         icon:"",
         link:"/adhesive-vinyl"
     },
     {
-        id:149,
+        id:151,
         label:"menuitems.large-posters.text",
         icon:"",
         link:"/large-posters"
     },
     {
-        id:150,
-        label:"menuitems.lawn-signs.text",
-        icon:"",
-        link:"/lawn-signs"
-    },
-    {
-        id:151,
-        label:"menuitems.sidewalk-signs.text",
-        icon:"",
-        link:"/sidewalk-signs"
-    },
-    {
         id:152,
+        label:"menuitems.yard-signs.text",
+        icon:"",
+        link:"/yard-signs"
+    },
+    {
+        id:153,
+        label:"menuitems.a-frame-signs.text",
+        icon:"",
+        link:"/a-frame-signs"
+    },
+    {
+        id:154,
         label:"menuitems.retractable-banners.text",
         icon:"",
         link:"/retractable-banners"
     },
     {
-        id:153,
+        id:155,
         label:"menuitems.magnetics.text",
         icon:"",
         link:"/magnetics"
     },
     {
-        id:154,
+        id:156,
         label:"menuitems.mounted-canvas.text",
         icon:"",
         link:"/mounted-canvas"
     },
     {
-        id:155,
-        label:"menuitems.bumper-stickers.text",
-        icon:"",
-        link:"/bumper-stickers"
-    },
-    {
-        id: 156,
-        label: "menuitems.flexo_printing.text",
+        id: 157,
+        label: "menuitems.promotional_products.text",
         isTitle: true
     },
     {
-        id:157,
+        id:158,
+        label:"menuitems.apparel.text",
+        icon:"",
+        link:"/apparel"
+    },
+    {
+        id: 159,
+        label: "menuitems.labels-stickers.text",
+        isTitle: true
+    },
+    {
+        id:160,
         label:"menuitems.roll-labels.text",
         icon:"",
         link:"/roll-labels"
     },
     {
-        id:158,
+        id:161,
         label:"menuitems.stickers.text",
         icon:"",
         link:"/stickers"
     },
     {
-        id: 159,
+        id:162,
+        label:"menuitems.bumper-stickers.text",
+        icon:"",
+        link:"/bumper-stickers"
+    },
+    {
+        id: 163,
         label: "menuitems.wraps.text",
         isTitle: true
     },
     {
-        id: 160,
-        label: "menuitems.promotional_products.text",
-        isTitle: true
+        id:164,
+        label:"menuitems.full-wrap.text",
+        icon:"",
+        link:"/full-wrap"
     },
     {
-        id:161,
-        label:"menuitems.apparel.text",
+        id:165,
+        label:"menuitems.partial-wrap.text",
         icon:"",
-        link:"/apparel"
+        link:"/partial-wrap"
     },
+    
 ];

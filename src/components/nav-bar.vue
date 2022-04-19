@@ -132,10 +132,10 @@ export default {
 
           <router-link to="/" class="logo logo-light">
             <span class="logo-sm">
-              <!-- <img src="@/assets/images/logo-light.svg" alt height="22" /> -->
+              <img src="@/assets/images/logo-light.svg" alt height="22" />
             </span>
             <span class="logo-lg">
-              <!-- <img src="@/assets/images/logo-light.png" alt height="19" /> -->
+              <img src="@/assets/images/logo-light.png" alt height="19" />
             </span>
           </router-link>
         </div>
@@ -727,14 +727,14 @@ export default {
           </a>
         </b-dropdown> -->
 
-        <div class="dropdown d-inline-block">
+        <!-- <div class="dropdown d-inline-block">
           <button
             type="button"
             class="btn header-item noti-icon right-bar-toggle toggle-right"
             @click="toggleRightSidebar">
             <i class="bx bx-cog bx-spin toggle-right"></i>
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -762,7 +762,14 @@ export default {
 </template>
 
 <style>
+/**
+  components > nav-bar.vue
+*/
   .page-content{
     padding-top:160px !important;
+    background: #e1e1e1 !important;
+  }
+  .navbar-header{
+    background: #e1e1e1 !important;
   }
 </style>

@@ -107,6 +107,9 @@
     "greeting-cards":{
       "text":"Greeting Cards"
     },
+    "business-cards":{
+      "text": "Business Cards"
+    },
     "menu": {
       "text": "Menu"
     },
@@ -161,14 +164,14 @@
     "large-posters":{
       "text": "Large Posters"
     },
-    "lawn-signs":{
-      "text": "Lawn Signs"
+    "yard-signs":{
+      "text": "Yard Signs"
     },
-    "sidewalk-signs":{
-      "text": "Sidewalk Signs"
+    "a-frame-signs":{
+      "text": "A-frame Signs"
     },
     "retractable-banners":{
-      "text": "Retractable banners"
+      "text": "Retractable Banners"
     },
     "magnetics":{
       "text": "Magnetics"
@@ -196,6 +199,12 @@
     },
     "apparel":{
       "text": "Apparel"
+    },
+    "full-wrap":{
+      "text": "Full Wrap"
+    },
+    "partial-wrap":{
+      "text": "Partial Wrap"
     },
     "dashboards": {
       "text": "Dashboards",

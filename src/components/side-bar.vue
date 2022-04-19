@@ -131,7 +131,7 @@ export default {
     <simplebar v-if="!isCondensed" :settings="settings" class="h-100" ref="currentMenu" id="my-element" >
       <div class="profile-box" style="text-align:center;">
       <div class="mb-4">
-        <img src="@/assets/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-sm">
+        <!-- <img src="@/assets/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-sm"> -->
         <!-- <i class="fas fa-user-circle" style="font-size:52px;color:#ccc;"></i> -->
       </div>
       <h5 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-light">Frank Kirk</a></h5>
@@ -143,7 +143,7 @@ export default {
     <simplebar v-else class="h-100">
       <div class="profile-box" style="text-align:center;">
       <div class="mb-4">
-        <img src="@/assets/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-sm">
+        <!-- <img src="@/assets/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-sm"> -->
         <!-- <i class="fas fa-user-circle" style="font-size:52px;color:#ccc;"></i> -->
       </div>
       <h5 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-light">Frank Kirk</a></h5>
@@ -154,3 +154,19 @@ export default {
   </div>
   <!-- Left Sidebar End -->
 </template>
+
+<style>
+
+  .vertical-menu,
+  .navbar-brand-box{
+    background: #172775 !important;
+  }
+  .menu-title{
+    font-size: 18px !important;
+    color: #556ee6 !important;
+  }
+  #side-menu span {
+    font-size: 16px;
+  }
+  #sidebar-menu ul li a { padding: 0.3rem 1.5rem }
+</style>
