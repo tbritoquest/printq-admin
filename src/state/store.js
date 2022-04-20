@@ -27,7 +27,7 @@ const store = new Vuex.Store({
         state.jobs.push(job)
     },
     REMOVE_JOB(state, index){
-        state.jobs.splice(index,1)
+      state.jobs.splice(index,1)
     },
     PLACE_ORDER(state){
         axios.post('orders/', {

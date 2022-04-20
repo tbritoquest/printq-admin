@@ -1,4 +1,5 @@
 <script>
+import OrderSummary from "@/components/order-summary"
 import router from "@/router";
 import { layoutComputed } from "@/state/helpers";
 
@@ -11,7 +12,7 @@ import Footer from "@/components/footer";
  * Vertical layout
  */
 export default {
-  components: { NavBar, SideBar, RightBar, Footer },
+  components: { NavBar, SideBar, RightBar, Footer, OrderSummary },
   data() {
     return {
       type: this.$store ? this.$store.state.layout.leftSidebarType : null || null,
@@ -89,6 +90,7 @@ export default {
     <div id="layout-wrapper">
       <NavBar />
       <SideBar :is-condensed="isMenuCondensed" :type="leftSidebarType" :width="layoutWidth" />
+      
       <!-- ============================================================== -->
       <!-- Start Page Content here -->
       <!-- ============================================================== -->
@@ -98,6 +100,7 @@ export default {
           <div class="container-fluid">
             <slot />
           </div>
+          <OrderSummary style="margin-top: 43px;" />
         </div>
         <Footer />
       </div>
@@ -105,3 +108,11 @@ export default {
     </div>
   </div>
 </template>
+
+<style>
+@media only screen and (min-width: 1400px) {
+  .page-content {
+    display: flex;
+  }
+}
+</style>

@@ -23,6 +23,7 @@
 
 
             <div class="card border shadow-none mb-2" v-for="(job,index) in cart" @click="showModal(job,index);$bvModal.show('edit-job-modal')">
+              <!-- <i class="far fa-times-circle job-x"></i> -->
               <a href="javascript: void(0);" class="text-body">
                 <div class="p-2">
                   <div class="d-flex">
@@ -117,10 +118,16 @@
           </div>
 
           <!--Edit Form footer-->
-          <div class="text-end mt-3">
-            <b-button variant="light" @click="$bvModal.hide('edit-job-modal')" ref="editCancelBtn">Cancel</b-button>
-            <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
+          <div class="mt-3 edit-job-footer-wrapper">
+            <!-- <b-button type="submit" variant="success" class="ms-1" @click="delete()">Delete</b-button> -->
+            <a href="#" @click="removeJob()" style="color:red;">Delete</a>
+            <div>
+              <b-button variant="light" @click="$bvModal.hide('edit-job-modal')" ref="editCancelBtn">Cancel</b-button>
+              <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
+            </div>
           </div>
+
+  
         </b-modal>
         <!--END of edit job form-->
     </div>
@@ -148,6 +155,11 @@ export default {
 
     },
     methods:{
+      removeJob(){
+        //update VueX store
+        this.$store.dispatch('removeJob', this.jobIndex)
+        this.$refs.editCancelBtn.click()
+      },
       submitOrder(){
         this.$router.push('/starter')
         alert('submitted!')
@@ -243,5 +255,15 @@ export default {
       padding-left: 0;
       height:215px; overflow-y: scroll;
     }
-   
+    .edit-job-footer-wrapper{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+   /* .job-x{
+     position: absolute;
+    font-size: 18px;
+    left: -10px;
+    top: -10px;
+   } */
 </style>

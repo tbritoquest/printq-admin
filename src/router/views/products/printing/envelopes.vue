@@ -87,7 +87,7 @@
           </div>
 
           <!-- ORDER SUMMARY -->
-            <OrderSummary />
+            <!-- <OrderSummary /> -->
         </div>
     </Layout>
 
