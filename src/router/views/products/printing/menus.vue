@@ -16,8 +16,7 @@
 
                       <!--Tab 1: PRINT SPECIFICATIONS-->
                       <tab-content title="Print Specification" icon="mdi mdi-cards"  :before-change="beforeTabSwitch">
-                          
-
+                        <Loader :loading="updating" >
                         <div class="col-sm-8" >
             
                             <div id="form-fields" :key="'form'+formKey">
@@ -34,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        </Loader>
                       </tab-content>
                       
                       <!--Tab 2: ADDITIONAL INFO-->
@@ -103,7 +102,7 @@
     import PageHeader from '@/components/page-header'
     import Multiselect from "vue-multiselect"
 
-
+    import Loader from '@/components/widgets/loader'
     import Review from '@/components/review'
     import {format} from 'date-format-parse'
     import { FormWizard, TabContent } from "vue-form-wizard";
@@ -116,7 +115,7 @@
     let gsheet_url_master = `https://docs.google.com/spreadsheets/d/e/2PACX-1vT4CAnAITnunV5TH5-f-YGVzmi6pZyq4IDcdqH4qkIS6F_hfEDR3eP7gx8CRWBh1tPtinn9E4ycNyYm/pub?output=xlsx`
 
     export default {
-        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review },
+        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review , Loader},
         data() {
             return {
                 title: "Menus",
@@ -134,6 +133,7 @@
                 majesticTypeSelected: null,
                 formWizardKey:0,
                 //PRINT SPECS
+                updating: false,
                 formKey:0,
                 SERVICE: null,
                 questions: null,
@@ -309,6 +309,7 @@
              
           },
           getProducts(url){
+              this.updating = true
               axios
               .get(url,{responseType: 'arraybuffer'})
                 .then(response => {
@@ -328,9 +329,11 @@
 
                   // Initiate form
                   this.startForm()
+                  this.updating = false
                 })
                 .catch(error=>{
                   console.log(error)
+                  this.updating = false
                 })
           }
         },
