@@ -41,7 +41,7 @@
 
                     <div class="ms-2" id="job-action-menu">
                       <i class="fas fa-pen" @click="showModal(job,index);$bvModal.show('edit-job-modal')"></i>
-                      <i class="fas fa-trash-alt" @click="confirm()"></i>
+                      <i class="fas fa-trash-alt" @click="confirm(index)"></i>
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,11 @@ export default {
 
     },
     methods:{
-      confirm() {
+      confirm(index) {
+        if(index) this.jobIndex = index
+        
+        console.log("job index: ", this.jobIndex)
+        
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
