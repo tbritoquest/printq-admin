@@ -169,14 +169,17 @@ export default {
         }).then(result => {
           if (result.value) {
             this.removeJob()
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            // Swal.fire("Deleted!", "Your file has been deleted.", "success");
           }
         });
       },
       removeJob(){
         //update VueX store
         this.$store.dispatch('removeJob', this.jobIndex)
-        this.$refs.editCancelBtn.click()
+        if(this.$refs.editCancelBtn){
+          this.$refs.editCancelBtn.click()
+        }
+        
       },
       submitOrder(){
         this.$router.push('/starter')
