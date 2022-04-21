@@ -41,7 +41,7 @@
 
                     <div class="ms-2" id="job-action-menu">
                       <i class="fas fa-pen" @click="showModal(job,index);$bvModal.show('edit-job-modal')"></i>
-                      <i class="fas fa-trash-alt" @click="confirm(index)"></i>
+                      <i class="fas fa-trash-alt" @click="confirm(job,index)"></i>
                     </div>
                   </div>
                 </div>
@@ -120,13 +120,13 @@
           </div>
 
           <!--Edit Form footer-->
-          <div class="mt-3 edit-job-footer-wrapper">
-            <!-- <b-button type="submit" variant="success" class="ms-1" @click="delete()">Delete</b-button> -->
-            <a href="#" @click="confirm()" style="color:red;">Delete</a>
-            <div>
+          <div class="mt-3 modal-footer">
+            
+            <!-- <a href="#" @click="confirm()" style="color:red;">Delete</a> -->
+            
               <b-button variant="light" @click="$bvModal.hide('edit-job-modal')" ref="editCancelBtn">Cancel</b-button>
               <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
-            </div>
+            
           </div>
 
   
@@ -157,8 +157,10 @@ export default {
 
     },
     methods:{
-      confirm(index) {
-        if(index) this.jobIndex = index
+      confirm(job,index) {
+        console.log("Job: ", job)
+        console.log("index:", index)
+        this.jobIndex = index
         
         console.log("job index: ", this.jobIndex)
         
@@ -289,6 +291,9 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+    #job-action-menu i{
+      color: grey;
     }
    /* .job-x{
      position: absolute;
