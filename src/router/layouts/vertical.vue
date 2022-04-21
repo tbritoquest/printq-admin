@@ -110,7 +110,7 @@ export default {
 </template>
 
 <style>
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1000px) {
   .page-content {
     display: flex;
   }

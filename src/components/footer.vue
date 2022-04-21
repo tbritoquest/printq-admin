@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" style="background:#e1e1e1;">
     <div class="container-fluid">
       <div class="row">
         <!-- <div class="col-sm-6">{{ new Date().getFullYear() - 1 }} - {{ new Date().getFullYear() }} © Skote.</div> -->
