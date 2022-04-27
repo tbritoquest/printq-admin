@@ -765,6 +765,12 @@ export default [
     component: () => import('./views/orders')
   },
   {
+    path: "/business-cards",
+    name: "business-cards",
+    meta: {authRequired:true},
+    component: () => import('./views/products/printing/business-cards')
+  },
+  {
     path: "/starter",
     name: "Starter",
     meta: {authRequired:true},
