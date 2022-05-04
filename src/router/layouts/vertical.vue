@@ -110,6 +110,9 @@ export default {
 </template>
 
 <style>
+.page-content{
+    min-height: 100vh;
+}
 @media only screen and (min-width: 1000px) {
   .page-content {
     display: flex;

@@ -5,21 +5,21 @@
             <!-- <h1 class="title mb-4">Orders</h1> -->
             
             <div class="row mb-2">
-               <!-- <b-form-group class="mb-3" id="example-search" label-cols-sm="2" label-cols-lg="2" label="Search" label-for="search">
-                    <b-form-input id="search" value="How do I shoot web" type="search" name="search" ></b-form-input>
-                </b-form-group> -->
 
                 <div class="col-sm-4">
                 <div class="search-box me-2 mb-2 d-inline-block" style="width:100%;">
                   <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search by Job Name or Job Number" style="border-radius: 0" v-model="search" @keyup="searchit" />
+                    <input type="text" class="form-control" placeholder="Search by Job Number or Job Name" style="border-radius: 0" v-model="search" @keyup="searchit" />
                     <i class="bx bx-search-alt search-icon"></i>
                   </div>
-                  <div class="dropdown-menu" id="dropdown-menu" role="menu" style="display:block;" v-if="search.length">
-                            <div class="dropdown-content">
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu" v-if="search.length">
+                            <div class="dropdown-content" v-if="jobs && jobs.length">
                                 <a v-for="(job, index) in jobs" href="#" class="dropdown-item" @click="searchBy(job.orderId)" >
                                     {{formatOrderId(job.orderId)}} - {{job.name}}
                                 </a>
+                            </div>
+                            <div class="dropdown-content" v-else>
+                                <span style="margin-left: 1em;font-style: italic;font-size:12px;">No search results found for {{search}}</span>
                             </div>
                         </div>
                 </div>
@@ -58,6 +58,7 @@
               <!-- end col-->
             </div><br>
             
+
             <h5 class="title is-5" style="font-style:italic;">Results: <span style="font-weight:500;" v-if="orders">{{orders.length}}</span> orders placed</h5><br>
 
             <div v-for="(order, index) in orders" class="order-list mb-5">
@@ -76,8 +77,7 @@
                     </div>
                     <div>
                         <h6 class="title is-6">Created On</h6>
-                        <!-- <h5 class="subtitle is-5">{{format(new Date(order.createdAt), 'yyyy-MM-dd')}}</h5> -->
-                        <h5 class="subtitle is-5">{{order.createdAt}}</h5>
+                        <h5 class="subtitle is-5">{{format(new Date(order.createdAt), 'MM/DD/YYYY')}}</h5>
                     </div>
                 </div>
             
@@ -107,7 +107,7 @@
 
 <script>
 // import JobEdit from "../components/JobEdit.vue"
-import axios from "axios"
+import axios from "../../http-common"
 // import router from '../router'
 import _ from 'lodash'
 // import { format } from 'date-fns'
@@ -187,6 +187,7 @@ export default {
         searchit: _.debounce(
             function () { 
                 this.getJobs()
+               
             }, 300
         ),
         close(id){
@@ -326,5 +327,12 @@ export default {
     }
     .order-list{
         border-bottom:1px solid grey !important;
+    }
+    .orders #dropdown-menu{
+        display: block;
+        max-height: 500px;
+        height: fit-content;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 </style>
