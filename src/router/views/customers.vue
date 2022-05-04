@@ -61,11 +61,11 @@ export default {
         address: { required },
       },
       customer:{
-        firstName: {}, 
-        lastName: {}, 
-        phone: {}, 
-        email: {}, 
-        address: {}
+        firstName: {required}, 
+        lastName: {required}, 
+        phone: {required}, 
+        email: {required}, 
+        address: {required}
       }
     
   },
