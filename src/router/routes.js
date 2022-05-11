@@ -731,7 +731,9 @@ export default [
   {
       path: "/postcards",
       name: "postcards",
-      meta: { authRequired: true },
+      meta: {
+        authRequired: true,
+      },
       component: () => import('./views/products/printing/postcards')
   },
   {

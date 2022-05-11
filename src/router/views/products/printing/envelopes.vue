@@ -1,6 +1,6 @@
 
 <template>
-    <Layout v-if="customer">
+    <Layout v-if="this.$store.getters['isCustomerSignedIn']">
         <PageHeader :title="title" :items="items" />
          
         <div class="d-xl-flex">
@@ -89,6 +89,7 @@
           <!-- ORDER SUMMARY -->
             <!-- <OrderSummary /> -->
         </div>
+        {{customerSignIn}}
     </Layout>
 
     <Layout v-else>
@@ -359,17 +360,19 @@
               return (this.isSampleDatePending || this.sampleDate) ? true: false
             else
               return null
+          },
+          customerSignIn(){
+            if(this.$store.getters['isCustomerSignedIn']){
+              this.getProducts(gsheet_url_master)
+            }
           }
         },
-        // updated: function () {
-        //   this.$nextTick(function () {
-        //       window.scrollTo(0, document.body.scrollHeight)
-        //   })
-        // },
         mounted() {
             console.log('Envelopes component mounted.')
             this.customer = this.$store.state.customer
-            this.getProducts(gsheet_url_master)
+            if(this.$store.getters['isCustomerSignedIn']){
+              this.getProducts(gsheet_url_master)
+            }
         }
     }
 </script>

@@ -139,7 +139,7 @@ export default {
                 active: true,
                 },
             ],
-            orders: ordersData,
+            orders: null,
             jobs:null,
             dateSelected: 30,
             page: 1,
@@ -235,7 +235,7 @@ export default {
         
     },
     mounted(){
-    //    this.getOrders()
+       this.getOrders()
     }
     
 }

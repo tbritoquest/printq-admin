@@ -9,8 +9,8 @@
         <b-col><label class="label">First Name</label></b-col>
         <b-col>Last Name</b-col>
         <div class="w-100"></div>
-        <b-col>{{firstName}}</b-col>
-        <b-col>{{lastName}}</b-col>
+        <b-col>{{customer.firstName}}</b-col>
+        <b-col>{{customer.lastName}}</b-col>
     </b-row><br>
 
     <b-row>
@@ -67,14 +67,6 @@ export default {
             customer:this.$store.state.customer,
             projectInfo: this.projectInfoObj,
             additionalInfo: this.additionalInfoObj
-        }
-    },
-    computed:{
-        firstName(){
-            return this.customer.name.split(' ')[0]
-        },
-        lastName(){
-            return this.customer.name.split(' ')[1]
         }
     }
 }

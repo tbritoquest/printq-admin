@@ -188,8 +188,10 @@ export default {
         
       },
       submitOrder(){
-        this.$router.push('/starter')
-        alert('submitted!')
+        // this.$router.push('/starter')
+        // alert('submitted!')
+        console.log(this)
+        this.$store.dispatch('placeOrder')
       },
       isEditJobFormValid(){
         this.checkValidation = true
@@ -235,7 +237,7 @@ export default {
       },
       getName: function(){
         if(this.customer){
-          return this.customer.name
+          return `${this.customer.firstName} ${this.customer.lastName}`
         }else{
           return null
         }
@@ -251,7 +253,6 @@ export default {
     mounted(){
       console.log("Order Summary mounted.")
       this.customer = this.$store.state.customer
-      // this.cart = this.$store.state.jobs
       
     }
 }

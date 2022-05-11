@@ -100,7 +100,7 @@ export default {
           <div class="container-fluid">
             <slot />
           </div>
-          <OrderSummary style="margin-top: 43px;" />
+          <OrderSummary style="margin-top: 43px;" v-if="this.$store.getters['isCustomerSignedIn']"/>
         </div>
         <Footer />
       </div>

@@ -1,25 +1,38 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from '../http-common'
 import modules from './modules'
+import router from '../router'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules,
+
   //custom
   state:{
-    customer: {id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890'}, //id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890' or NULL
-    // customer: null, //id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890' or NULL
+    // customer: {id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890'}, //id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890' or NULL
+    customer: null, //id: '1',name: 'John Doe', email: 'fake@email.com', address: '123 example lane', phone: '1234567890' or NULL
     isCustomerSignedIn: false,
     jobs: [], //aka "cart"
-    user: {id:'1'}
+    user: {id:'1'},
+    test: ""
   },  
+  getters: {
+    isCustomerSignedIn(state){
+      return state.isCustomerSignedIn
+    }
+    // doneTodos (state) {
+    //   return state.todos.filter(todo => todo.done)
+    // }
+  },
   mutations:{
     UPDATE_POST (state, customer) {
       state.customer = customer
     },
-    SIGNIN_CUSTOMER(state){
+    SIGNIN_CUSTOMER(state,customer){
+      console.log("CUSTOMER: ", customer)
+        state.customer = customer
         state.isCustomerSignedIn = true
     },
     ADD_TO_CART(state, job){
@@ -29,16 +42,23 @@ const store = new Vuex.Store({
     REMOVE_JOB(state, index){
       state.jobs.splice(index,1)
     },
+    CHANGE_TEST(state,data){
+      console.log(data)
+    },
     PLACE_ORDER(state){
+      console.log(state)
+      state.test = "help"
+      console.log("PLACE_ORDER")
         axios.post('orders/', {
             agentId: state.user.id,
             customerId: state.customer.id,
             jobs: state.jobs
           })
           .then(response =>{
-            state.customer = {}
-            state.isCustomerSignedIn = false 
-            state.jobs = []
+            // state.customer = {}
+            // state.isCustomerSignedIn = false 
+            // state.jobs = []
+            this.commit("RESET_CUSTOMER")
             router.push('orders')
           })
           .catch(error => {
@@ -64,8 +84,8 @@ const store = new Vuex.Store({
     updateCustomer ({ commit }, payload) {
         commit('UPDATE_POST', payload)
     },
-    signInCustomer({commit}){
-        commit('SIGNIN_CUSTOMER')
+    signInCustomer({commit},payload){
+        commit('SIGNIN_CUSTOMER',payload)
     },
     addToCart({commit}, payload){
         commit('ADD_TO_CART', payload)

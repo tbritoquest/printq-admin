@@ -1,6 +1,6 @@
 
 <template>
-    <Layout v-if="customer">
+    <Layout v-if="this.$store.getters['isCustomerSignedIn']">
         <PageHeader :title="title" :items="items" />
          
         <div class="d-xl-flex">
@@ -218,7 +218,8 @@
             return (this.jobNameState && this.sampleDateState)? true : false
           },
           onComplete () { //runs when user submits form
-            
+           
+            this.customer = this.$store.state.customer
             this.results[0]["groupName"] = this.title
             const job = {
                 customerId: this.customer.id,
@@ -270,7 +271,7 @@
              
           },
           generateNextQuestion(){
-      
+            console.log("generate next question")
             this.resultsAtQuestion.push(this.results) // add new results
             
             this.currQ +=1
@@ -278,6 +279,8 @@
             this.set = new Set() 
             for(let i=0;i<this.results.length;i++){
               let productAttribute = this.questions[this.currQ] //ex. Size
+              console.log(this.results[i][productAttribute])
+              console.log(typeof this.results[i][productAttribute])
               this.set.add(this.results[i][productAttribute].toString().trim())
             }
             
@@ -289,7 +292,7 @@
            
           },
           checkAnswer(id, event=null){
-            
+            console.log("checkanswer")
               // if(this.currQ>=this.questions.length){ //end of form
               //     console.log("No more questions")
               //     return
@@ -405,6 +408,7 @@
                 this.checkAnswer(this.currQ)
           },
           results(oldR,newR){
+            console.log(document.querySelector('button.wizard-btn'))
             if(this.results && this.results.length<2){
               document.querySelector('button.wizard-btn').disabled = false
               this.reviewKey++ //update review component

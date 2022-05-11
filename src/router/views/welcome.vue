@@ -1,5 +1,5 @@
 <template>
-    <Layout >
+    <Layout v-if="this.$store.getters['isCustomerSignedIn']">
         <PageHeader />
          
         <div class="d-xl-flex">
@@ -26,19 +26,30 @@
             </div>
           </div>
 
-          <!-- ORDER SUMMARY -->
-            <!-- <OrderSummary /> -->
         </div>
+    </Layout>
+
+    <Layout v-else>
+        <CustomerLookup />
     </Layout>
 </template>
 
 <script>
     import Layout from '../layouts/main'
     import PageHeader from '@/components/page-header'
-    import OrderSummary from '@/components/order-summary'
+    import CustomerLookup from "../../components/customer-lookup.vue"
 
     export default {
-        components: { Layout, PageHeader,OrderSummary },
+        components: { Layout, PageHeader, CustomerLookup},
+        data() {
+          return{
+            customer:null
+          }
+        },
+        mounted() {
+            console.log('Starter component mounted.')
+            this.customer = this.$store.state.customer
+        }
     }
 </script>
 

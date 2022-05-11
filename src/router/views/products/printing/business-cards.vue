@@ -1,6 +1,6 @@
 
 <template>
-    <Layout v-if="customer">
+    <Layout v-if="this.$store.getters['isCustomerSignedIn']">
         <PageHeader :title="title" :items="items" />
          
         <div class="d-xl-flex">
