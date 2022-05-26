@@ -12,7 +12,7 @@
                   <div class="card" style="min-height:75vh;" :id="SERVICE">
                   <div class="card-body">
                       
-                    <form-wizard shape="tab" color="#556ee6" @on-complete="onComplete" @on-change="handleChange" finish-button-text="Add to order" :key="formWizardKey">
+                    <form-wizard shape="tab" color="#556ee6" @on-complete="onComplete" finish-button-text="Add to order" :key="formWizardKey">
 
                       <!--Tab 1: PRINT SPECIFICATIONS-->
                       <tab-content title="Print Specification" icon="mdi mdi-cards"  :before-change="beforeTabSwitch">
@@ -55,12 +55,6 @@
                                   <label class="label">Majestic Type</label>
                                   <div class="select is-medium">
                                       <select class="form-select" aria-label="select majestic type" @change="getMajesticType($event)">
-                                          <!-- <option value="" disabled="" selected="">Select Majestic Type</option> -->
-                                          <!-- <option value="Akuafoil" :selected="majesticTypeSelected == 'Akuafoil'">Akuafoil</option>
-                                          <option value="RaisedFoil" :selected="majesticTypeSelected == 'RaisedFoil'">Raised Foil</option>
-                                          <option value="RaisedSpotUV" :selected="majesticTypeSelected == 'RaisedSpotUV'">Raised Spot UV</option>
-                                          <option value="Silk" :selected="majesticTypeSelected == 'Silk'">Silk</option>
-                                          <option value="Suede" :selected="majesticTypeSelected == 'Suede'">Suede</option> -->
                                           <option v-for="option in majesticTypeList" :value="option.replace(/\s+/g, '')" :selected="majesticTypeSelected == option.replace(/\s+/g, '')">
                                           {{option}}
                                         </option>
@@ -87,40 +81,13 @@
                       
                       <!--Tab 2: ADDITIONAL INFO-->
                       <tab-content icon="mdi mdi-cog" title="Additional Info" :before-change="validateAdditionalInfo">
-                          <div class="row">
-                            <div class="col-12">
-                                <!--Order Date-->
-                                <b-form-group class="mb-3" id="order-date" label-cols-sm="2" label-cols-lg="3" label="Date" label-for="order date" >
-                                    <b-form-input id="date" v-model="orderDate" type="date" disabled></b-form-input>
-                                </b-form-group>
-
-
-                                <!--Sample Date-->
-                                <b-form-group class="mb-3" id="sample-date" label-cols-sm="2" label-cols-lg="3" label="Sample Date" label-for="sample date" >
-                                    <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
-                                    <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
-                                    <label for="date" style="margin-left:1em;"> Date pending</label><br>              
-                                    <!-- <p class="help is-danger" v-if="isInvalid('sampleDate')">Please select a date</p> -->
-                                </b-form-group>
-
-                                <!--Job Name-->
-                                <b-form-group class="mb-3" id="job-name" label-cols-lg="3" label="Job Name" label-for="job name" :invalid-feedback="invalidJobNameFeedback" :state="jobNameState">
-                                    <b-form-input for="text" v-model="jobName" :state="jobNameState"></b-form-input>
-                                    
-                                </b-form-group>
-
-                                <!--Notes-->
-                                <b-form-group class="mb-3" id="notes" label-cols-lg="3" label="Notes" label-for="notes" >
-                                    <b-form-textarea id="textarea" placeholder="" rows="3" max-rows="6" v-model="notes"></b-form-textarea>
-                                </b-form-group>
-                            </div>
-                          </div>
+                         <AdditionalInfoForm @interface="getChildInterface"/>
                       </tab-content>
 
-
-              <tab-content icon="mdi mdi-checkbox-marked-circle-outline" title="Review">
-                <Review  :additionalInfoObj='getAdditionalInfo()' :projectInfoObj='getSpecs()' :key='reviewKey'/>
-              </tab-content>
+                      <!--Tab 3: REVIEW -->
+                      <tab-content icon="mdi mdi-checkbox-marked-circle-outline" title="Review">
+                        <Review  :additionalInfoObj='getAdditionalInfo()' :projectInfoObj='getSpecs()' :key='reviewKey'/>
+                      </tab-content>
                       <!--END OF TEST-->
                     </form-wizard>
                   </div>
@@ -154,6 +121,7 @@
 
     import Loader from '@/components/widgets/loader'
     import Review from '@/components/review'
+    import AdditionalInfoForm from '@/components/forms/additional-info'
     import {format} from 'date-format-parse'
     import { FormWizard, TabContent } from "vue-form-wizard";
     import CustomerLookup from '@/components/customer-lookup'
@@ -163,7 +131,7 @@
     
     
     export default {
-        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review,Loader },
+        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review,Loader,AdditionalInfoForm },
         data() {
             return {
                 title: "Business Cards",
@@ -208,40 +176,41 @@
                 hierarchy: null,
                 set: null,
                 updating:false,
-                //ADDITIONAL INFO 
-                orderDate: format(new Date(), 'YYYY-MM-DD'),
-                sampleDate: '',
-                isSampleDatePending: false,
-                checkValidation:false,
-                jobName: '',
-                notes: '',
                 //REVIEW
                 reviewKey:0,
             }
             
         },
+        childInterface: {
+          validateAdditionalInfo: () => {},
+          getAdditionalInfo: ()=>{}
+        },
         methods:{
-          //form wizard
-          validateAdditionalInfo(){
-            this.checkValidation = true
-            this.reviewKey++ // update review component
-            return (this.jobNameState && this.sampleDateState)? true : false
+          getChildInterface(childInterface) {
+            this.$options.childInterface = childInterface;
           },
-          onComplete () { //runs when user submits form
-            
+          // Add count through the interface
+          validateAdditionalInfo() {
+            this.reviewKey++
+            return this.$options.childInterface.validateAdditionalInfo()
+          },
+          getAdditionalInfo(){
+            return this.$options.childInterface.getAdditionalInfo()
+          },
+          //form wizard
+          onComplete () { 
             this.results[0]["groupName"] = this.title
-            const job = {
-                customerId: this.customer.id,
+            let additionalInfo = this.$options.childInterface.getAdditionalInfo()
+             const job = {
+                customerId: this.$store.state.customer.id,
                 printSpecs: JSON.stringify(this.results[0]),
-                notes: {notes: [this.notes]},
-                sampleDate: this.isSampleDatePending? 'pending':this.sampleDate,
-                name: this.jobName
+                notes: {notes: [additionalInfo.notes]},
+                sampleDate: additionalInfo.sampleDate,
+                dueDate: additionalInfo.dueDate,
+                name: additionalInfo.jobName,
             }
             this.$store.dispatch('addToCart', job)
             this.$router.push("/starter")
-          },
-          handleChange(prevIndex, nextIndex){
-              console.log(`Changing from ${prevIndex} to ${nextIndex}`)
           },
           beforeTabSwitch(){
             if(this.results && this.results.length<2){
@@ -252,11 +221,6 @@
             }
           },
           //Review
-          getAdditionalInfo(){
-            // if isSampleDatePending = true then answer is 'pending' else answer is date
-            let sd = this.isSampleDatePending? 'pending':this.sampleDate
-            return {orderDate:this.orderDate,sampleDate:sd,jobName:this.jobName,notes:this.notes}
-          },
           getSpecs(){
             if(this.results && this.results.length===1){
               return this.results[0]
@@ -421,21 +385,6 @@
             }
             else
               document.querySelector('button.wizard-btn').disabled = true
-          }
-        },
-        computed: {
-          //ADDITIONAL INFO
-          jobNameState() {
-            return this.checkValidation? this.jobName.length>=4 : null
-          },
-          invalidJobNameFeedback() {
-            return this.jobName.length > 0? 'Enter at least 4 characters.' : 'Please enter a job name.'
-          },
-          sampleDateState(){
-            if(this.checkValidation)
-              return (this.isSampleDatePending || this.sampleDate) ? true: false
-            else
-              return null
           }
         },
         mounted() {

@@ -21,6 +21,7 @@ export default {
   components: { Layout, PageHeader },
   data() {
     return {
+      limit: 10,
       numOfPages: null,
       next: null,
       prev: null,
@@ -178,7 +179,7 @@ export default {
       this.submitted = false;
     },
     getCustomers(pageNum){
-      let query = `page=${pageNum || this.pageNum}&limit=10&search=${this.search}`
+      let query = `page=${pageNum || this.pageNum}&limit=${this.limit}&search=${this.search}`
 
       axios.get(`/customers?${query}`)
       .then(response=>{
@@ -195,7 +196,9 @@ export default {
     }
   },
   watch: {
-    
+    limit: function(val) {
+        this.getCustomers(1)
+    },
     pageNum: function(val){
       console.log(val)
         this.getCustomers()
@@ -218,7 +221,93 @@ export default {
         <div class="card">
           <div class="card-body">
             <div class="row mb-2">
+                <!--ADD NEW CUSTOMER-->
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                  <div class="text-sm-end">
+                    <button type="button" class="btn btn-success btn-rounded mb-2 me-2" @click="showModal = true" >
+                      <i class="mdi mdi-plus me-1"></i> New Customers
+                    </button>
+                    <b-modal v-model="showModal" title="Add New Customer" title-class="text-black font-18" body-class="p-3" hide-footer>
+                      <form @submit.prevent="handleSubmit">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="name">First Name</label>
+                              <input id="name" v-model="customers.firstName" type="text" class="form-control" placeholder="Insert first name" :class="{'is-invalid': submitted && $v.customers.firstName.$error,}" />
+                              <div v-if="submitted && !$v.customers.firstName.required" class="invalid-feedback">
+                                This value is required.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="name">Last Name</label>
+                              <input id="name"  v-model="customers.lastName" type="text" class="form-control" placeholder="Insert last name" :class="{'is-invalid': submitted && $v.customers.lastName.$error,}" />
+                              <div v-if="submitted && !$v.customers.lastName.required" class="invalid-feedback">
+                                This value is required.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="phone">Phone</label>
+                              <input id="phone" v-model="customers.phone" type="text" class="form-control" placeholder="Insert phone" :class="{'is-invalid': submitted && $v.customers.phone.$error,}" />
+                              <div v-if="submitted && !$v.customers.phone.required" class="invalid-feedback" >
+                                This value is required.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="email">Email</label>
+                              <input id="email" v-model="customers.email" type="email"  class="form-control" placeholder="Insert email" :class="{ 'is-invalid': submitted && $v.customers.email.$error, }" />
+                              <div v-if="submitted && !$v.customers.email.required" class="invalid-feedback" >
+                                This value is required.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="address">Address</label>
+                              <input id="address" v-model="customers.address" type="text" class="form-control"  placeholder="Insert address" :class="{ 'is-invalid': submitted && $v.customers.address.$error, }" />
+                              <div v-if="submitted && !$v.customers.address.required" class="invalid-feedback" >
+                                This value is required.
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+
+                        <div class="text-end pt-5 mt-3">
+                          <b-button variant="light" @click="showModal = false">Close</b-button>
+                          <b-button type="submit" variant="success" class="ms-1" >Add Customer</b-button>
+                        </div>
+                      </form>
+                    </b-modal>
+                  </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+              <!--Show x entries-->
               <div class="col-sm-4">
+                <div style="display: flex;align-items: baseline;column-gap: 1em;">
+                      <label class="">Select</label>
+                      <div class="">
+                        <select v-model="limit" class="form-control">
+                            <option value=10>10</option>
+                            <option value=50>50</option>
+                            <option value=100>100</option>
+                            <option value=500>500</option>
+                            <option value=1000>1000</option>
+                        </select>
+                      </div>
+                  entries
+                </div>
+                    
+              </div>
+              <!--Search Bar-->
+              <div class="col-sm-6 offset-sm-2">
                 <div class="search-box me-2 mb-2 d-inline-block" style="width:100%;">
                   <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search by name, email, phone" v-model="search" @keyup="searchit"/>
@@ -227,72 +316,6 @@ export default {
                 </div>
               </div>
 
-              <!--ADD NEW CUSTOMER-->
-              <div class="col-sm-8">
-                <div class="text-sm-end">
-                  <button type="button" class="btn btn-success btn-rounded mb-2 me-2" @click="showModal = true" >
-                    <i class="mdi mdi-plus me-1"></i> New Customers
-                  </button>
-                  <b-modal v-model="showModal" title="Add New Customer" title-class="text-black font-18" body-class="p-3" hide-footer>
-                    <form @submit.prevent="handleSubmit">
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label for="name">First Name</label>
-                            <input id="name" v-model="customers.firstName" type="text" class="form-control" placeholder="Insert first name" :class="{'is-invalid': submitted && $v.customers.firstName.$error,}" />
-                            <div v-if="submitted && !$v.customers.firstName.required" class="invalid-feedback">
-                              This value is required.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label for="name">Last Name</label>
-                            <input id="name"  v-model="customers.lastName" type="text" class="form-control" placeholder="Insert last name" :class="{'is-invalid': submitted && $v.customers.lastName.$error,}" />
-                            <div v-if="submitted && !$v.customers.lastName.required" class="invalid-feedback">
-                              This value is required.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label for="phone">Phone</label>
-                            <input id="phone" v-model="customers.phone" type="text" class="form-control" placeholder="Insert phone" :class="{'is-invalid': submitted && $v.customers.phone.$error,}" />
-                            <div v-if="submitted && !$v.customers.phone.required" class="invalid-feedback" >
-                              This value is required.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label for="email">Email</label>
-                            <input id="email" v-model="customers.email" type="email"  class="form-control" placeholder="Insert email" :class="{ 'is-invalid': submitted && $v.customers.email.$error, }" />
-                            <div v-if="submitted && !$v.customers.email.required" class="invalid-feedback" >
-                              This value is required.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input id="address" v-model="customers.address" type="text" class="form-control"  placeholder="Insert address" :class="{ 'is-invalid': submitted && $v.customers.address.$error, }" />
-                            <div v-if="submitted && !$v.customers.address.required" class="invalid-feedback" >
-                              This value is required.
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-
-                      <div class="text-end pt-5 mt-3">
-                        <b-button variant="light" @click="showModal = false">Close</b-button>
-                        <b-button type="submit" variant="success" class="ms-1" >Add Customer</b-button>
-                      </div>
-                    </form>
-                  </b-modal>
-                </div>
-              </div>
-              <!-- end col-->
             </div>
             <div class="table-responsive">
               <table class="table table-centered table-nowrap align-middle">
@@ -341,66 +364,25 @@ export default {
                 </tbody>
               </table>
             </div>
-            <!-- <ul class="pagination pagination-rounded justify-content-end mb-2">
-              <li class="page-item disabled">
-                <a
-                  class="page-link"
-                  href="javascript: void(0);"
-                  aria-label="Previous"
-                >
-                  <i class="mdi mdi-chevron-left"></i>
-                </a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="javascript: void(0);">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript: void(0);">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript: void(0);">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript: void(0);">4</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript: void(0);">5</a>
-              </li>
-              <li class="page-item">
-                <a
-                  class="page-link"
-                  href="javascript: void(0);"
-                  aria-label="Next"
-                >
-                  <i class="mdi mdi-chevron-right"></i>
-                </a>
-              </li>
-            </ul> -->
-
+           
+            <!-- 1-11 of 1200 pages -->
             <nav class="pagination flex" role="navigation" aria-label="pagination">
                 <div>
-                    <!-- 1-11 of 1200 pages -->
-                    {{numOfPages}} page<span v-if="numOfPages>1">s</span>
+                  {{numOfPages}} page<span v-if="numOfPages>1">s</span> 
                 </div>
+
                 <div class="flex">
                     <span>The page you're on </span>
-                    <!-- <div class="select is-normal">
-                      <select v-model="pageNum" >
-                          <option v-for="option in numOfPages" :value="option">{{option}}</option>
-                      </select>
-                      </div> -->
+                    <select class="form-control" v-model="pageNum" style="width:40px;">
+                      <option v-for="option in numOfPages" :value="option">{{option}}</option>
+                    </select>
+                    <a class="page-link" v-if="prev" @click="handlePrevious()" aria-label="Previous" >
+                      <i class="mdi mdi-chevron-left"></i>
+                    </a>
 
-                      <select class="form-control" v-model="pageNum" style="width:40px;">
-                        <option v-for="option in numOfPages" :value="option">{{option}}</option>
-                      </select>
-                       <a class="page-link" v-if="prev" @click="handlePrevious()" aria-label="Previous" >
-                            <i class="mdi mdi-chevron-left"></i>
-                          </a>
-
-                          <a class="page-link" v-if="next" @click="handleNext()" aria-label="Next" >
-                            <i class="mdi mdi-chevron-right"></i>
-                          </a>
-                      
+                    <a class="page-link" v-if="next" @click="handleNext()" aria-label="Next" >
+                      <i class="mdi mdi-chevron-right"></i>
+                    </a>
                 </div>
             </nav>
           </div>

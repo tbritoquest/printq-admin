@@ -6,88 +6,49 @@
         <div class="d-xl-flex">
           <div class="w-100">
             <div class="d-md-flex">
-              
-              <div class="w-100">
-                        
+              <div class="w-100">       
                   <div class="card" style="min-height:75vh;" :id="SERVICE">
-                  <div class="card-body">
-                      
-                    <form-wizard shape="tab" color="#556ee6" @on-complete="onComplete" @on-change="handleChange" finish-button-text="Add to order" :key="formWizardKey">
+                      <div class="card-body">
+                          <form-wizard shape="tab" color="#556ee6" @on-complete="onComplete" finish-button-text="Add to order" :key="formWizardKey">
 
-                      <!--Tab 1: PRINT SPECIFICATIONS-->
-                      <tab-content title="Print Specification" icon="mdi mdi-cards"  :before-change="beforeTabSwitch">
-                          
-
-                        <div class="col-sm-8" >
-            
-                            <div id="form-fields" :key="'form'+formKey">
-                                <div class="field" v-for="(question, index) in questions" :key="index" v-if="index <= currQ" >
-                                    <label class="label">{{question}}</label>
-                                    <div class="select is-medium">
-                                    <select @change="checkAnswer(index, $event)" class="form-select">
-                                        <option value=""  disabled="" selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
-                                        <option v-for="option in hierarchy[index]" :value="option">
-                                        {{option}}
-                                        </option>
-                                    </select>
+                              <!--Tab 1: PRINT SPECIFICATIONS-->
+                              <tab-content title="Print Specification" icon="mdi mdi-cards"  :before-change="beforeTabSwitch">
+                                <div class="col-sm-8" >
+                    
+                                    <div id="form-fields" :key="'form'+formKey">
+                                        <div class="field" v-for="(question, index) in questions" :key="index" v-if="index <= currQ" >
+                                            <label class="label">{{question}}</label>
+                                            <div class="select is-medium">
+                                            <select @change="checkAnswer(index, $event)" class="form-select">
+                                                <option value=""  disabled="" selected="" v-if="hierarchy[index].size>1">Select {{question}}</option>
+                                                <option v-for="option in hierarchy[index]" :value="option">
+                                                {{option}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                              </tab-content>
+                              
+                              <!--Tab 2: ADDITIONAL INFO-->
+                              <tab-content icon="mdi mdi-cog" title="Additional Info" :before-change="validateAdditionalInfo">
+                                <AdditionalInfoForm @interface="getChildInterface"/>
+                              </tab-content>
 
-                      </tab-content>
-                      
-                      <!--Tab 2: ADDITIONAL INFO-->
-                      <tab-content icon="mdi mdi-cog" title="Additional Info" :before-change="validateAdditionalInfo">
-                          <div class="row">
-                            <div class="col-12">
-                                <!--Order Date-->
-                                <b-form-group class="mb-3" id="order-date" label-cols-sm="2" label-cols-lg="3" label="Date" label-for="order date" >
-                                    <b-form-input id="date" v-model="orderDate" type="date" disabled></b-form-input>
-                                </b-form-group>
-
-
-                                <!--Sample Date-->
-                                <b-form-group class="mb-3" id="sample-date" label-cols-sm="2" label-cols-lg="3" label="Sample Date" label-for="sample date" >
-                                    <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
-                                    <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
-                                    <label for="date" style="margin-left:1em;"> Date pending</label><br>              
-                                    <!-- <p class="help is-danger" v-if="isInvalid('sampleDate')">Please select a date</p> -->
-                                </b-form-group>
-
-                                <!--Job Name-->
-                                <b-form-group class="mb-3" id="job-name" label-cols-lg="3" label="Job Name" label-for="job name" :invalid-feedback="invalidJobNameFeedback" :state="jobNameState">
-                                    <b-form-input for="text" v-model="jobName" :state="jobNameState"></b-form-input>
-                                    
-                                </b-form-group>
-
-                                <!--Notes-->
-                                <b-form-group class="mb-3" id="notes" label-cols-lg="3" label="Notes" label-for="notes" >
-                                    <b-form-textarea id="textarea" placeholder="" rows="3" max-rows="6" v-model="notes"></b-form-textarea>
-                                </b-form-group>
-                            </div>
-                          </div>
-                      </tab-content>
-
-
-              <tab-content icon="mdi mdi-checkbox-marked-circle-outline" title="Review">
-                <Review  :additionalInfoObj='getAdditionalInfo()' :projectInfoObj='getSpecs()' :key='reviewKey'/>
-              </tab-content>
-                      <!--END OF TEST-->
-                    </form-wizard>
+                              <!--Tab 3: REVIEW-->
+                              <tab-content icon="mdi mdi-checkbox-marked-circle-outline" title="Review">
+                                <Review  :additionalInfoObj='getAdditionalInfo()' :projectInfoObj='getSpecs()' :key='reviewKey'/>
+                              </tab-content>
+                            
+                          </form-wizard>
+                      </div>
                   </div>
-              
-                  
-                  </div>
-              
                 <!-- end card -->
               </div>
               <!-- end w-100 -->
             </div>
           </div>
-
-          <!-- ORDER SUMMARY -->
-            <!-- <OrderSummary /> -->
         </div>
         {{customerSignIn}}
     </Layout>
@@ -106,6 +67,7 @@
 
 
     import Review from '@/components/review'
+    import AdditionalInfoForm from '@/components/forms/additional-info'
     import {format} from 'date-format-parse'
     import { FormWizard, TabContent } from "vue-form-wizard";
     import CustomerLookup from '@/components/customer-lookup'
@@ -117,7 +79,7 @@
     let gsheet_url_master = `https://docs.google.com/spreadsheets/d/e/2PACX-1vT4suVz8Yc_iTiXMd6e_9dNiV7dV9a50RXXx_ORQDlT0SIdlOtZ4j2Pz_xwyqjT5w/pub?output=xlsx`
 
     export default {
-        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review },
+        components: { Layout,PageHeader,Multiselect,OrderSummary,CustomerLookup,FormWizard, TabContent, Review, AdditionalInfoForm },
         data() {
             return {
                 title: "Envelopes",
@@ -143,39 +105,43 @@
                 currQ: null,
                 hierarchy: null,
                 set: null,
-                //ADDITIONAL INFO 
-                orderDate: format(new Date(), 'YYYY-MM-DD'),
-                sampleDate: '',
-                isSampleDatePending: false,
-                checkValidation:false,
-                jobName: '',
-                notes: '',
                 //REVIEW
                 reviewKey:0,
             }
             
         },
+        childInterface: {
+          validateAdditionalInfo: () => {},
+          getAdditionalInfo: ()=>{}
+        },
         methods:{
-          //form wizard
-          validateAdditionalInfo(){
-            this.checkValidation = true
-            this.reviewKey++ // update review component
-            return (this.jobNameState && this.sampleDateState)? true : false
+          getChildInterface(childInterface) {
+            this.$options.childInterface = childInterface;
           },
-          onComplete () { //runs when user submits form
+          // Add count through the interface
+          validateAdditionalInfo() {
+            this.reviewKey++
+            return this.$options.childInterface.validateAdditionalInfo()
+          },
+          getAdditionalInfo(){
+            return this.$options.childInterface.getAdditionalInfo()
+          },
+          //form wizard
+          onComplete () { 
             this.results[0]["groupName"] = this.title
-            const job = {
-                customerId: this.customer.id,
+            let additionalInfo = this.$options.childInterface.getAdditionalInfo()
+             const job = {
+                customerId: this.$store.state.customer.id,
                 printSpecs: JSON.stringify(this.results[0]),
-                notes: {notes: [this.notes]},
-                sampleDate: this.isSampleDatePending? 'pending':this.sampleDate,
-                name: this.jobName
+                notes: {notes: [additionalInfo.notes]},
+                sampleDate: additionalInfo.sampleDate,
+                dueDate: additionalInfo.dueDate,
+                name: additionalInfo.jobName,
             }
+          
+         
             this.$store.dispatch('addToCart', job)
             this.$router.push("/starter")
-          },
-          handleChange(prevIndex, nextIndex){
-              console.log(`Changing from ${prevIndex} to ${nextIndex}`)
           },
           beforeTabSwitch(){
             if(this.results && this.results.length<2){
@@ -186,11 +152,6 @@
             }
           },
           //Review
-          getAdditionalInfo(){
-            // if isSampleDatePending = true then answer is 'pending' else answer is date
-            let sd = this.isSampleDatePending? 'pending':this.sampleDate
-            return {orderDate:this.orderDate,sampleDate:sd,jobName:this.jobName,notes:this.notes}
-          },
           getSpecs(){
             if(this.results && this.results.length===1){
               return this.results[0]
@@ -233,11 +194,6 @@
           },
           checkAnswer(id, event=null){
             
-              // if(this.currQ>=this.questions.length){ //end of form
-              //     console.log("No more questions")
-              //     return
-              // }
-
               if(id<this.currQ){ // runs in the event that user changes answer
                 this.goBackToQuestion(id,event)
                 return
@@ -348,31 +304,18 @@
           }
         },
         computed: {
-          //ADDITIONAL INFO
-          jobNameState() {
-            return this.checkValidation? this.jobName.length>=4 : null
-          },
-          invalidJobNameFeedback() {
-            return this.jobName.length > 0? 'Enter at least 4 characters.' : 'Please enter a job name.'
-          },
-          sampleDateState(){
-            if(this.checkValidation)
-              return (this.isSampleDatePending || this.sampleDate) ? true: false
-            else
-              return null
-          },
+
           customerSignIn(){
             if(this.$store.getters['isCustomerSignedIn']){
               this.getProducts(gsheet_url_master)
             }
           }
+
         },
         mounted() {
             console.log('Envelopes component mounted.')
             this.customer = this.$store.state.customer
-            if(this.$store.getters['isCustomerSignedIn']){
-              this.getProducts(gsheet_url_master)
-            }
+            this.customerSignIn
         }
     }
 </script>

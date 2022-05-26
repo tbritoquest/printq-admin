@@ -77,18 +77,19 @@
                   <!--Sample Date-->
                   <div class="col-md-4">
                     <b-form-group class="mb-3" label="Sample Date" label-for="sample-date-input" >
-                      <!-- <b-form-input id="formrow-email-input" type="date" ></b-form-input> -->
                         <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
                         <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
                         <label for="date" style="margin-left:1em;"> Date pending</label><br>        
                     </b-form-group>
                   </div>
                   <!--Due Date-->
-                  <!-- <div class="col-md-4">
+                  <div class="col-md-4">
                     <b-form-group class="mb-3" label="Due Date" label-for="due-date-input" >
-                      <b-form-input id="formrow-email-input" type="email" ></b-form-input>
+                      <b-form-datepicker id="" class="mb-2" v-model="dueDate" :min="orderDate" :disabled="isDueDatePending" :state="dueDateState"></b-form-datepicker>
+                      <input type="checkbox" id="dateCheckbox" name="dueDate" value="pending" v-model="isDueDatePending">
+                      <label for="date" style="margin-left:1em;"> Date pending</label><br> 
                     </b-form-group>
-                  </div> -->
+                  </div>
                   
                 </div>
 
@@ -121,12 +122,8 @@
 
           <!--Edit Form footer-->
           <div class="mt-3 modal-footer">
-            
-            <!-- <a href="#" @click="confirm()" style="color:red;">Delete</a> -->
-            
               <b-button variant="light" @click="$bvModal.hide('edit-job-modal')" ref="editCancelBtn">Cancel</b-button>
               <b-button type="submit" variant="success" class="ms-1" @click="update()">Update</b-button>
-            
           </div>
 
   
@@ -148,6 +145,8 @@ export default {
             jobSelected: null,
             isSampleDatePending: null,
             sampleDate: null,
+            isDueDatePending: null,
+            dueDate: null,
             notes: null,
             jobIndex: null,
             jobName: null,
@@ -158,12 +157,7 @@ export default {
     },
     methods:{
       confirm(job,index) {
-        console.log("Job: ", job)
-        console.log("index:", index)
         this.jobIndex = index
-        
-        console.log("job index: ", this.jobIndex)
-        
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -175,7 +169,6 @@ export default {
         }).then(result => {
           if (result.value) {
             this.removeJob()
-            // Swal.fire("Deleted!", "Your file has been deleted.", "success");
           }
         });
       },
@@ -188,20 +181,17 @@ export default {
         
       },
       submitOrder(){
-        // this.$router.push('/starter')
-        // alert('submitted!')
-        console.log(this)
         this.$store.dispatch('placeOrder')
       },
       isEditJobFormValid(){
         this.checkValidation = true
-        return ((this.jobNameState ||this.jobNameState===null) && this.sampleDateState)? true : false
-       
+        return ((this.jobNameState ||this.jobNameState===null) && this.sampleDateState && this.dueDateState)? true : false
       },
       update(){
           if(this.isEditJobFormValid()){
             this.jobSelected.name = this.jobName
             this.jobSelected.sampleDate = this.isSampleDatePending? "pending" : this.sampleDate
+            this.jobSelected.dueDate = this.isDueDatePending? "pending" : this.dueDate
             this.jobSelected.notes.notes[0] = this.notes
             //update VueX store
             this.$store.dispatch('editJob', {job: this.jobSelected,index: this.jobIndex})
@@ -212,6 +202,8 @@ export default {
         this.jobSelected = job
         this.isSampleDatePending = this.jobSelected.sampleDate === "pending"? true:false
         this.sampleDate = this.jobSelected.sampleDate === "pending"? "":this.jobSelected.sampleDate
+        this.isDueDatePending = this.jobSelected.dueDate === "pending"? true:false
+        this.dueDate = this.jobSelected.dueDate === "pending"? "":this.jobSelected.dueDate
         this.notes = this.jobSelected.notes.notes[0]
         this.jobIndex = index
         this.jobName = job.name
@@ -224,6 +216,17 @@ export default {
       sampleDateState(){
           if(this.checkValidation){
               if(this.isSampleDatePending || this.sampleDate){
+                  return true
+              }else{
+                  return false
+              }
+          }else{
+              null
+          }
+      },
+      dueDateState(){
+          if(this.checkValidation){
+              if(this.isDueDatePending || this.dueDate){
                   return true
               }else{
                   return false
