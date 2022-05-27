@@ -16,8 +16,8 @@
             </b-form-group>
 
             <!--Due Date-->
-            <b-form-group class="mb-3" id="" label-cols-sm="2" label-cols-lg="3" label="Due Date" label-for="due date" >
-                <b-form-datepicker id="" class="mb-2" v-model="dueDate" :min="orderDate" :disabled="isDueDatePending" :state="dueDateState"></b-form-datepicker>
+            <b-form-group class="mb-3" id="due-date" label-cols-sm="2" label-cols-lg="3" label="Due Date" label-for="due date" >
+                <b-form-datepicker id="due-date" class="mb-2" v-model="dueDate" :min="orderDate" :disabled="isDueDatePending" :state="dueDateState"></b-form-datepicker>
                 <input type="checkbox" id="dateCheckbox" name="dueDate" value="pending" v-model="isDueDatePending">
                 <label for="date" style="margin-left:1em;"> Date pending</label><br>              
             </b-form-group>
@@ -38,11 +38,12 @@
 </template>
 
 <script>
+
 import {format} from 'date-format-parse'
 import { FormWizard, TabContent } from "vue-form-wizard";
 
 export default {
-    components: { FormWizard, TabContent },
+    components: { FormWizard, TabContent},
     data(){
         return {
             orderDate: format(new Date(), 'YYYY-MM-DD'),
@@ -66,7 +67,6 @@ export default {
             return (this.jobNameState && this.sampleDateState && this.dueDateState)? true : false
         },
         emitInterface() {
-            console.log("Emit interface from inside child")
             this.$emit("interface", {
                 validateAdditionalInfo: () => this.validateAdditionalInfo(),
                 getAdditionalInfo: () => this.getAdditionalInfo()
@@ -102,5 +102,10 @@ export default {
 </script>
 
 <style>
-
+ #sample-date .form-control.is-invalid,
+ #sample-date .form-control.is-valid,
+ #due-date .form-control.is-invalid,
+ #due-date .form-control.is-valid{
+     padding-right: 0 !important;
+ }
 </style>

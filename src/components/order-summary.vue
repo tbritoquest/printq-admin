@@ -76,7 +76,7 @@
                   </div>
                   <!--Sample Date-->
                   <div class="col-md-4">
-                    <b-form-group class="mb-3" label="Sample Date" label-for="sample-date-input" >
+                    <b-form-group class="mb-3" id="sample-date" label="Sample Date" label-for="sample-date-input" >
                         <b-form-datepicker id="sample-date" class="mb-2" v-model="sampleDate" :min="orderDate" :disabled="isSampleDatePending" :state="sampleDateState"></b-form-datepicker>
                         <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="isSampleDatePending">
                         <label for="date" style="margin-left:1em;"> Date pending</label><br>        
@@ -84,8 +84,8 @@
                   </div>
                   <!--Due Date-->
                   <div class="col-md-4">
-                    <b-form-group class="mb-3" label="Due Date" label-for="due-date-input" >
-                      <b-form-datepicker id="" class="mb-2" v-model="dueDate" :min="orderDate" :disabled="isDueDatePending" :state="dueDateState"></b-form-datepicker>
+                    <b-form-group class="mb-3" id="due-date" label="Due Date" label-for="due-date-input" >
+                      <b-form-datepicker id="due-date" class="mb-2" v-model="dueDate" :min="orderDate" :disabled="isDueDatePending" :state="dueDateState"></b-form-datepicker>
                       <input type="checkbox" id="dateCheckbox" name="dueDate" value="pending" v-model="isDueDatePending">
                       <label for="date" style="margin-left:1em;"> Date pending</label><br> 
                     </b-form-group>

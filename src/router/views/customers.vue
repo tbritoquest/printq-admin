@@ -292,7 +292,7 @@ export default {
               <!--Show x entries-->
               <div class="col-sm-4">
                 <div style="display: flex;align-items: baseline;column-gap: 1em;">
-                      <label class="">Select</label>
+                      Select
                       <div class="">
                         <select v-model="limit" class="form-control">
                             <option value=10>10</option>
