@@ -219,7 +219,7 @@ export default {
     <div class="customers row">
       <div class="col-12">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body" style="min-height:746px;">
             <div class="row mb-2">
                 <!--ADD NEW CUSTOMER-->
                 <div class="col-sm-4"></div>
@@ -328,7 +328,7 @@ export default {
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="customersData && customersData.length">
                   <tr v-for="customerObj in customersData" :key="customerObj.id">
                     
                     <td class="text-capitalize">{{customerObj.firstName}} {{customerObj.lastName}}</td>
@@ -361,6 +361,10 @@ export default {
                       </b-dropdown>
                     </td>
                   </tr>
+                </tbody>
+
+                <tbody style="height:46vh;min-height: 468px;" v-else>
+                    <img src="@/assets/images/customers-clipart.png" alt="clipboard pic" height="150" class="center" />
                 </tbody>
               </table>
             </div>

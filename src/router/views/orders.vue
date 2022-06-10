@@ -1,6 +1,6 @@
 <template>
-<Layout>
-    <PageHeader :title="title"  />
+    <Layout>
+        <PageHeader :title="title"  />
         <div class="orders">
             <!-- <h1 class="title mb-4">Orders</h1> -->
             
@@ -102,143 +102,140 @@
             <!-- <JobEdit v-on:close="closeJobEditForm()" v-if="visible" v-bind:job="jobSelected"/> -->
 
             <!--EDIT Job MODAL-->
-    <b-modal v-model="showEditModal" id="editJobModal" ref="editJobModal" size="xl" title="Edit Customer" title-class="text-black font-18" body-class="editJobModal" hide-footer hide-header>
-        <div class="row editJob" v-if="job">
-            <div class="col col-8 p-5" style="background:#F2F5F8;">
-                <h3>Job Name : {{job.name}}</h3>
-                <p class="mb-5">Job ID : {{job.id}}</p>
-               
-                <div class="row">
-                        
-                        <b-tabs pills content-class="mt-5 text-muted">
-                        <b-tab active class="border-0">
-                            <template v-slot:title>
-                            <span class="d-inline-block d-sm-none">
-                                <i class="fas fa-home"></i>
-                            </span>
-                            <span class="d-none d-sm-inline-block">Print Specifications</span>
-                            </template>
-                            <div class="print-specs p-3">
-                                <div class="spec mb-3" v-for="(value,name) in job.printSpecs" >
-                                    <span>{{name}}</span> <span>{{value}}</span>
-                                </div>
+            <b-modal v-model="showEditModal" id="editJobModal" ref="editJobModal" size="xl" title="Edit Customer" title-class="text-black font-18" body-class="editJobModal" hide-footer hide-header>
+                <div class="row editJob" v-if="job">
+                    <div class="col col-8 p-5" style="background:#F2F5F8;">
+                        <h3>Job Name : {{job.name}}</h3>
+                        <p class="mb-5">Job ID : {{job.id}}</p>
+                    
+                        <div class="row">
+                                
+                                <b-tabs pills content-class="mt-5 text-muted">
+                                <b-tab active class="border-0">
+                                    <template v-slot:title>
+                                    <span class="d-inline-block d-sm-none">
+                                        <i class="fas fa-home"></i>
+                                    </span>
+                                    <span class="d-none d-sm-inline-block">Print Specifications</span>
+                                    </template>
+                                    <div class="print-specs p-3">
+                                        <div class="spec mb-3" v-for="(value,name) in job.printSpecs" >
+                                            <span>{{name}}</span> <span>{{value}}</span>
+                                        </div>
+                                    </div>
+                                </b-tab>
+                                <b-tab>
+                                    <template v-slot:title>
+                                        <span class="d-inline-block d-sm-none">
+                                            <i class="far fa-user"></i>
+                                        </span>
+                                        <span class="d-none d-sm-inline-block">Notes</span>
+                                    </template>
+                                    <!--Notes Content-->
+                                    <div class="w-100 user-chat">
+                                        <div class="card">
+                                        <div class="chat-users">
+                                            <div class="chat-conversation p-3 max-height-360">
+                                            <simplebar style="max-height: 360px" id="containerElement" ref="current">
+                                                <ul class="list-unstyled">
+                                                <!-- <li v-for="data of chatMessagesData" :key="data.message" :class="{ right: `${data.align}` === 'right' }"> -->
+                                                <li v-for="data of job.Notes" :key="data.content" >
+                                                    <div class="conversation-list mb-0">
+                                                        <!-- <span style="float:left" class="m-3">hello</span> -->
+                                                    <div class="ctext-wrap">
+                                                        <div class="conversation-name">Author Name</div>
+                                                        <p>{{data.content}}</p>
+                                                        <p class="chat-time mb-0">
+                                                        {{format(new Date(data.createdAt), 'MM/DD/YYYY')}}
+                                                        <i class="bx bx-time-five align-middle me-1 ms-2"></i>
+                                                        {{format(new Date(data.createdAt), 'hh:mm a')}}
+                                                        </p>
+                                                    </div>
+                                                    </div>
+                                                </li>
+                                                </ul>
+                                            </simplebar>
+                                            </div>
+                                            <div class="p-3 chat-input-section">
+                                            <form @submit.prevent="formSubmit" class="row">
+                                                <div class="col">
+                                                <div class="position-relative">
+                                                    <!-- <input type="text" v-model="form.message" class="form-control chat-input rounded" placeholder="Enter Message..." :class="{'is-invalid': submitted && $v.form.message.$error,}"/> -->
+                                                    <textarea rows="3" v-model="form.message" class="form-control chat-input rounded" placeholder="Enter Message..." :class="{'is-invalid': submitted && $v.form.message.$error,}"></textarea>
+                                                    <div v-if="submitted && $v.form.message.$error" class="invalid-feedback">
+                                                    <span v-if="!$v.form.message.required">This value is required.</span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="col-auto mt-3">
+                                                    <a href="#" class="d-none d-sm-inline-block me-2" @click="discardNote()">Discard</a>
+                                                    <button type="submit">
+                                                        <span class="d-none d-sm-inline-block ">Save Note</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <!--End of Notes Content-->
+                                </b-tab>
+                                
+                            </b-tabs>
+                        </div>
+                        <!--END OF TABS-->
+                    </div>
+                    <div class="col col-4 edit-job-attribute-col pt-5 pb-5 ps-4 pe-4">
+                        <!-- <div style="width:100%;height:50px;"></div> -->
+                        <div class="wrapper">
+                            <div class="job-attribute mb-4">
+                                <span>Status</span>
+                                <!-- <span>{{job.status}}</span> -->
+                                <select class="form-control" style="width:34%;" v-model="editForm.status" :class="{ sentBg: `${editForm.status}` === 'sent',recBg: `${editForm.status}` === 'received',underBg: `${editForm.status}` === 'under review',canBg: `${editForm.status}` === 'cancelled' }">
+                                    <option value="new order">New Order</option>
+                                    <option value="sent">Sent</option>
+                                    <option value="received">Received</option>
+                                    <option value="done">Done</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
                             </div>
-                        </b-tab>
-                        <b-tab>
-                            <template v-slot:title>
-                                <span class="d-inline-block d-sm-none">
-                                    <i class="far fa-user"></i>
-                                </span>
-                                <span class="d-none d-sm-inline-block">Notes</span>
-                            </template>
-                            <!--Notes Content-->
-<div class="w-100 user-chat">
-        <div class="card">
-
-          <div class="chat-users">
-            <div class="chat-conversation p-3 max-height-360">
-              <simplebar style="max-height: 360px" id="containerElement" ref="current">
-                <ul class="list-unstyled">
-                  <!-- <li v-for="data of chatMessagesData" :key="data.message" :class="{ right: `${data.align}` === 'right' }"> -->
-                  <li v-for="data of job.Notes" :key="data.content" >
-                    <div class="conversation-list mb-0">
-                        <!-- <span style="float:left" class="m-3">hello</span> -->
-                      <div class="ctext-wrap">
-                        <div class="conversation-name">Author Name</div>
-                        <p>{{data.content}}</p>
-                        <p class="chat-time mb-0">
-                          {{format(new Date(data.createdAt), 'MM/DD/YYYY')}}
-                          <i class="bx bx-time-five align-middle me-1 ms-2"></i>
-                          {{format(new Date(data.createdAt), 'HH:mm a')}}
-                        </p>
-                      </div>
+                            <div class="job-attribute mb-4">
+                                <span>Customer</span> <span>Name</span>
+                            </div>
+                            <div class="job-attribute mb-4">
+                                <span>Order #</span> <span>{{job.orderId}}</span>
+                            </div>
+                            <div class="job-attribute mb-4">
+                                <span>Order Date</span> <span>11/04/2021 n/a</span>
+                            </div>
+                            <div class="job-attribute">
+                                <span style="margin-bottom: 4em;">Sample Date</span>
+                            
+                                <!--Sample Date-->
+                                <b-form-group class="mb-3" id="sample-date" label="" label-for="sample date" >
+                                    <input id="date" type="date" class="form-control mb-2" v-model="editForm.sampleDate" :disabled="editForm.isSamplePending" >
+                                    <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="editForm.isSamplePending">
+                                    <label for="date" style="margin-left:1em;"> Date pending</label><br>              
+                                </b-form-group>
+                            </div>
+                            <div class="job-attribute">
+                                <span style="margin-bottom: 4em;">Due Date</span>
+                                <b-form-group class="mb-3" id="due-date" label="" label-for="due date" >
+                                    <input id="date" type="date" class="form-control mb-2" v-model="editForm.dueDate" :disabled="editForm.isDueDatePending" >
+                                    <input type="checkbox" id="dateCheckbox" name="dueDate" value="pending" v-model="editForm.isDueDatePending">
+                                    <label for="date" style="margin-left:1em;"> Date pending</label><br>              
+                                </b-form-group>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <button type="button" class="btn btn-outline-secondary me-2" @click="$bvModal.hide('editJobModal')">Cancel</button>
+                            <button type="button" class="btn btn-primary" @click="editJobForm()">Save</button>
+                        </div>
                     </div>
-                  </li>
-                </ul>
-              </simplebar>
-            </div>
-            <div class="p-3 chat-input-section">
-              <form @submit.prevent="formSubmit" class="row">
-                <div class="col">
-                  <div class="position-relative">
-                    <!-- <input type="text" v-model="form.message" class="form-control chat-input rounded" placeholder="Enter Message..." :class="{'is-invalid': submitted && $v.form.message.$error,}"/> -->
-                    <textarea rows="3" v-model="form.message" class="form-control chat-input rounded" placeholder="Enter Message..." :class="{'is-invalid': submitted && $v.form.message.$error,}"></textarea>
-                    <div v-if="submitted && $v.form.message.$error" class="invalid-feedback">
-                      <span v-if="!$v.form.message.required">This value is required.</span>
-                    </div>
-                  </div>
                 </div>
-                <div class="col-auto mt-3">
-                    <a href="#" class="d-none d-sm-inline-block me-2" @click="discardNote()">Discard</a>
-                    <button type="submit">
-                        <span class="d-none d-sm-inline-block ">Save Note</span>
-                    </button>
-                </div>
-              </form>
-            </div>
-          </div>
+            </b-modal>
         </div>
-      </div>
-                            <!--End of Notes Content-->
-                        </b-tab>
-                        
-                        </b-tabs>
-                   
-                </div>
-                <!--END OF TABS-->
-            </div>
-            <div class="col col-4 edit-job-attribute-col pt-5 pb-5 ps-4 pe-4">
-                <!-- <div style="width:100%;height:50px;"></div> -->
-                <div class="wrapper">
-                    <div class="job-attribute mb-4">
-                        <span>Status</span>
-                         <!-- <span>{{job.status}}</span> -->
-                        <select class="form-control" style="width:34%;" v-model="editForm.status" :class="{ sentBg: `${editForm.status}` === 'sent',recBg: `${editForm.status}` === 'received',underBg: `${editForm.status}` === 'under review',canBg: `${editForm.status}` === 'cancelled' }">
-                             <option value="new order">New Order</option>
-                             <option value="sent">Sent</option>
-                             <option value="received">Received</option>
-                             <option value="done">Done</option>
-                             <option value="cancelled">Cancelled</option>
-                        </select>
-                    </div>
-                    <div class="job-attribute mb-4">
-                        <span>Customer</span> <span>Name</span>
-                    </div>
-                    <div class="job-attribute mb-4">
-                        <span>Order #</span> <span>{{job.orderId}}</span>
-                    </div>
-                    <div class="job-attribute mb-4">
-                        <span>Order Date</span> <span>11/04/2021 n/a</span>
-                    </div>
-                    <div class="job-attribute">
-                        <span style="margin-bottom: 4em;">Sample Date</span>
-                       
-                         <!--Sample Date-->
-                        <b-form-group class="mb-3" id="sample-date" label="" label-for="sample date" >
-                            <input id="date" type="date" class="form-control mb-2" v-model="editForm.sampleDate" :disabled="editForm.isSamplePending" >
-                            <input type="checkbox" id="dateCheckbox" name="sampleDate" value="pending" v-model="editForm.isSamplePending">
-                            <label for="date" style="margin-left:1em;"> Date pending</label><br>              
-                        </b-form-group>
-                    </div>
-                    <div class="job-attribute">
-                        <span style="margin-bottom: 4em;">Due Date</span>
-                        <b-form-group class="mb-3" id="due-date" label="" label-for="due date" >
-                            <input id="date" type="date" class="form-control mb-2" v-model="editForm.dueDate" :disabled="editForm.isDueDatePending" >
-                            <input type="checkbox" id="dateCheckbox" name="dueDate" value="pending" v-model="editForm.isDueDatePending">
-                            <label for="date" style="margin-left:1em;"> Date pending</label><br>              
-                        </b-form-group>
-                    </div>
-                </div>
-                <div style="text-align:right;">
-                    <button type="button" class="btn btn-outline-secondary me-2" @click="$bvModal.hide('editJobModal')">Cancel</button>
-                    <button type="button" class="btn btn-primary" @click="editJobForm()">Save</button>
-                </div>
-            </div>
-        </div>
-    </b-modal>
-        </div>
-
-</Layout>
+    </Layout>
 </template>
 
 <script>
@@ -331,7 +328,6 @@ export default {
             this.editSubmitform = true;
             this.$v.editForm.$touch();
             if (this.$v.editForm.$invalid) {
-                console.log("invalid")
                 return;
             } else {
                 axios.put(`/jobs/${this.job.id}`,{

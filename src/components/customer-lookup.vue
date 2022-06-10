@@ -70,62 +70,62 @@
     
          <!--ADD NEW CUSTOMER-->
         <b-modal v-model="showModal" title="Add New Customer" title-class="text-black font-18" body-class="p-3" hide-footer>
-                <form @submit.prevent="handleAddSubmit">
-                    <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="name">First Name</label>
-                        <input id="name" v-model="customers.firstName" type="text" class="form-control" placeholder="Insert first name" :class="{'is-invalid': submitted && $v.customers.firstName.$error,}" />
-                        <div v-if="submitted && !$v.customers.firstName.required" class="invalid-feedback">
-                            This value is required.
-                        </div>
-                        </div>
+            <form @submit.prevent="handleAddSubmit">
+                <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                    <label for="name">First Name</label>
+                    <input id="name" v-model="customers.firstName" type="text" class="form-control" placeholder="Insert first name" :class="{'is-invalid': submitted && $v.customers.firstName.$error,}" />
+                    <div v-if="submitted && !$v.customers.firstName.required" class="invalid-feedback">
+                        This value is required.
                     </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="name">Last Name</label>
-                        <input id="name"  v-model="customers.lastName" type="text" class="form-control" placeholder="Insert last name" :class="{'is-invalid': submitted && $v.customers.lastName.$error,}" />
-                        <div v-if="submitted && !$v.customers.lastName.required" class="invalid-feedback">
-                            This value is required.
-                        </div>
-                        </div>
                     </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="phone">Phone</label>
-                        <input id="phone" v-model="customers.phone" type="text" class="form-control" placeholder="Insert phone" :class="{'is-invalid': submitted && $v.customers.phone.$error,}" />
-                        <div v-if="submitted && !$v.customers.phone.required" class="invalid-feedback" >
-                            This value is required.
-                        </div>
-                        </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                    <label for="name">Last Name</label>
+                    <input id="name"  v-model="customers.lastName" type="text" class="form-control" placeholder="Insert last name" :class="{'is-invalid': submitted && $v.customers.lastName.$error,}" />
+                    <div v-if="submitted && !$v.customers.lastName.required" class="invalid-feedback">
+                        This value is required.
                     </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input id="email" v-model="customers.email" type="email"  class="form-control" placeholder="Insert email" :class="{ 'is-invalid': submitted && $v.customers.email.$error, }" />
-                        <div v-if="submitted && !$v.customers.email.required" class="invalid-feedback" >
-                            This value is required.
-                        </div>
-                        </div>
                     </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="address">Address</label>
-                        <input id="address" v-model="customers.address" type="text" class="form-control"  placeholder="Insert address" :class="{ 'is-invalid': submitted && $v.customers.address.$error, }" />
-                        <div v-if="submitted && !$v.customers.address.required" class="invalid-feedback" >
-                            This value is required.
-                        </div>
-                        </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                    <label for="phone">Phone</label>
+                    <input id="phone" v-model="customers.phone" type="text" class="form-control" placeholder="Insert phone" :class="{'is-invalid': submitted && $v.customers.phone.$error,}" />
+                    <div v-if="submitted && !$v.customers.phone.required" class="invalid-feedback" >
+                        This value is required.
                     </div>
-                    
                     </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input id="email" v-model="customers.email" type="email"  class="form-control" placeholder="Insert email" :class="{ 'is-invalid': submitted && $v.customers.email.$error, }" />
+                    <div v-if="submitted && !$v.customers.email.required" class="invalid-feedback" >
+                        This value is required.
+                    </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input id="address" v-model="customers.address" type="text" class="form-control"  placeholder="Insert address" :class="{ 'is-invalid': submitted && $v.customers.address.$error, }" />
+                    <div v-if="submitted && !$v.customers.address.required" class="invalid-feedback" >
+                        This value is required.
+                    </div>
+                    </div>
+                </div>
+                
+                </div>
 
-                    <div class="text-end pt-5 mt-3">
-                    <b-button variant="light" @click="showModal = false">Close</b-button>
-                    <b-button type="submit" variant="success" class="ms-1" >Add Customer</b-button>
-                    </div>
-                </form>
-                </b-modal>
+                <div class="text-end pt-5 mt-3">
+                <b-button variant="light" @click="showModal = false">Close</b-button>
+                <b-button type="submit" variant="success" class="ms-1" >Add Customer</b-button>
+                </div>
+            </form>
+        </b-modal>
         <!-- end col-->
     </div>
 

@@ -52,8 +52,8 @@
 
         </div>
 
-        <div style="padding:1em;padding-bottom:2em;text-align:center;">
-          <button type="button" class="btn btn-primary rounded-pill" v-if="cart && cart.length>0" @click="submitOrder()" >Place Order</button>
+        <div v-if="cart && cart.length>0" style="padding:1em;padding-bottom:2em;text-align:center;">
+          <button type="button" class="btn btn-primary rounded-pill"  @click="submitOrder()" >Place Order</button>
         </div>
 
          <!-- EDIT JOB FORM -->

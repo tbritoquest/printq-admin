@@ -777,5 +777,11 @@ export default [
     name: "Starter",
     meta: {authRequired:true},
     component: () => import("./views/welcome"),
+  },
+  {
+    path: "/alerts",
+    name: "Alerts",
+    meta: {authRequired:true},
+    component: () => import("./views/alerts"),
   }
 ];
